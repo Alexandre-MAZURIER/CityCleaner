@@ -3,4 +3,5 @@
     <string name="title_map">Carte</string>
     <string name="title_groups">Groupes</string>
     <string name="title_my_trashs">Mes déchets</string>
+    <string name="title_create_trash">Signaler un déchet</string>
 </resources>
