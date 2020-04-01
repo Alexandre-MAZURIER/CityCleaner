@@ -1,16 +1,16 @@
-package etu.ihm.citycleaner.ui.notifications;
+package etu.ihm.citycleaner.ui.map;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MyTrashsViewModel extends ViewModel {
+public class MapViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public MyTrashsViewModel() {
+    public MapViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {

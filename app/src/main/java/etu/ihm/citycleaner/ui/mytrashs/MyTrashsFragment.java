@@ -1,4 +1,4 @@
-package etu.ihm.citycleaner.ui.home;
+package etu.ihm.citycleaner.ui.mytrashs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import etu.ihm.citycleaner.R;
 
-public class MapFragment extends Fragment {
+public class MyTrashsFragment extends Fragment {
 
-    private MapViewModel mapViewModel;
+    private MyTrashsViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mapViewModel =
-                ViewModelProviders.of(this).get(MapViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_map, container, false);
-        final TextView textView = root.findViewById(R.id.text_map);
-        mapViewModel.getText().observe(this, new Observer<String>() {
+        notificationsViewModel =
+                ViewModelProviders.of(this).get(MyTrashsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_my_trashs, container, false);
+        final TextView textView = root.findViewById(R.id.text_my_trashs);
+        notificationsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

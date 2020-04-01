@@ -1,4 +1,4 @@
-package etu.ihm.citycleaner.ui.notifications;
+package etu.ihm.citycleaner.ui.groups;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import etu.ihm.citycleaner.R;
 
-public class MyTrashsFragment extends Fragment {
+public class GroupsFragment extends Fragment {
 
-    private MyTrashsViewModel notificationsViewModel;
+    private GroupsViewModel myTrashsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(MyTrashsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_my_trashs, container, false);
-        final TextView textView = root.findViewById(R.id.text_my_trashs);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        myTrashsViewModel =
+                ViewModelProviders.of(this).get(GroupsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_groups, container, false);
+        final TextView textView = root.findViewById(R.id.text_groups);
+        myTrashsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

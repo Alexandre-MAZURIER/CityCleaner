@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="etu.ihm.citycleaner.ui.home.MapFragment"
+        android:name="etu.ihm.citycleaner.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_groups"
-        android:name="etu.ihm.citycleaner.ui.dashboard.GroupsFragment"
+        android:name="etu.ihm.citycleaner.ui.groups.GroupsFragment"
         android:label="@string/title_groups"
         tools:layout="@layout/fragment_groups" />
 
     <fragment
         android:id="@+id/navigation_my_trashs"
-        android:name="etu.ihm.citycleaner.ui.notifications.MyTrashsFragment"
+        android:name="etu.ihm.citycleaner.ui.mytrashs.MyTrashsFragment"
         android:label="@string/title_my_trashs"
         tools:layout="@layout/fragment_my_trashs" />
 </navigation>
