@@ -24,12 +24,7 @@ public class GroupsFragment extends Fragment {
                 ViewModelProviders.of(this).get(GroupsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_groups, container, false);
         final TextView textView = root.findViewById(R.id.text_groups);
-        myTrashsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        textView.setText("Groupes");
         return root;
     }
 }
