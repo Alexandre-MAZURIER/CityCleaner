@@ -1,16 +1,15 @@
-package etu.ihm.citycleaner.ui.map;
+package etu.ihm.citycleaner.ui.map.createtrash;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MapViewModel extends ViewModel {
-
+public class CreateTrashViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public MapViewModel() {
+    public CreateTrashViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("Pedro add garbage");
     }
 
     public LiveData<String> getText() {
