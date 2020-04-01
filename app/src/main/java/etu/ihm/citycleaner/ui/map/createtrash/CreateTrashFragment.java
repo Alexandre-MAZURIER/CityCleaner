@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -22,7 +21,7 @@ public class CreateTrashFragment extends Fragment implements View.OnClickListene
                              ViewGroup container, Bundle savedInstanceState) {
         trashViewModel =
                 ViewModelProviders.of(this).get(CreateTrashViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_createtrash, container, false);
+        View root = inflater.inflate(R.layout.activity_create_trash, container, false);
         final TextView textView = root.findViewById(R.id.text_createtrash);
         trashViewModel.getText().observe(this, new Observer<String>() {
             @Override

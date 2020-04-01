@@ -1,8 +1,10 @@
 package etu.ihm.citycleaner;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -43,4 +45,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
+    public void addTrash(View view) {
+        Intent intent = new Intent(MainActivity.this, CreateTrashActivity.class);
+        startActivity(intent);
+    }
 }
