@@ -145,18 +145,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlancTifa"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view4"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:padding="15dp">
+        android:background="@color/colorBlancTifa"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view4">
 
         <TextView
             android:id="@+id/add_picture"
@@ -165,9 +163,8 @@
             android:text="Ajouter une photo"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -176,29 +173,27 @@
     <Button
         android:id="@+id/imageButton"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="86dp"
-        android:layout_height="86dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ic_take_photo"
-        app:layout_constraintTop_toBottomOf="@+id/view5"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintVertical_bias="0.276" />
 
     <Button
         android:id="@+id/cancel_button"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:background="#FFFFFF"
         android:text="Annuler"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/view5"
         app:layout_constraintEnd_toStartOf="@+id/send_button"
-        style="?android:attr/borderlessButtonStyle"
-        />
+        app:layout_constraintTop_toBottomOf="@id/view5" />
 
     <Button
         android:id="@+id/send_button"
@@ -214,4 +209,15 @@
         app:layout_constraintTop_toTopOf="@id/cancel_button"
         app:layout_constraintBottom_toBottomOf="@id/cancel_button"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/view5"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
