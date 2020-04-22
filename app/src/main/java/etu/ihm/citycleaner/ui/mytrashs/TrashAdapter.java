@@ -29,16 +29,16 @@ public class TrashAdapter extends ArrayAdapter<Trash> {
         textViewDate.setText(trash.getDate().toString());
 
         TextView textViewAddress = convertView.findViewById(R.id.trash_address);
-        textViewAddress.setText(trash.getAddress());
+        //textViewAddress.setText(trash.getAddress());
 
         TextView textViewCity = convertView.findViewById(R.id.trash_city);
-        textViewCity.setText(trash.getCity());
+        //textViewCity.setText(trash.getCity());
 
         TextView textViewZIP = convertView.findViewById(R.id.trash_zip);
-        textViewZIP.setText(trash.getZip() +"");
+        //textViewZIP.setText(trash.getZip() +"");
 
         TextView textViewCountry = convertView.findViewById(R.id.trash_country);
-        textViewCountry.setText(trash.getCountry());
+        //textViewCountry.setText(trash.getCountry());
         // Return the completed view to render on screen
         return convertView;
     }

@@ -23,11 +23,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.database.TrashManager;
+import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
+    private TrashManager trashManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,23 +48,28 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
+        trashManager = new TrashManager(this.getContext());
+        trashManager.open();
+        trashManager.addTrash(new Trash(0, 0, 1, 43.615479, 7.072214, "22/04/2020", ""));
+        trashManager.addTrash(new Trash(1, 0, 1, 43.61641, 7.06866, "22/04/2020", ""));
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
+            googleMap = mMap;
 
-                // For showing a move to my location button
-                googleMap.setMyLocationEnabled(true);
+            // For showing a move to my location button
+            googleMap.setMyLocationEnabled(true);
 
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(43.615479, 7.072214);
-                LatLng inria = new LatLng(43.61641, 7.06866);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Polytech Nice Sophia").snippet("La petite Jaja"));
-                googleMap.addMarker(new MarkerOptions().position(inria).title("Ritanos").snippet("Gros déchets"));
-
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
+            for(Trash t : trashManager.getTrashs()) {
+                LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
+                googleMap.addMarker(new MarkerOptions().position(latLng).title("Polytech Nice Sophia").snippet("La petite Jaja"));
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
+
+            // For zooming automatically to the location of the marker
+
             }
         });
 
