@@ -56,6 +56,15 @@ public class CreateTrashActivity extends Activity {
                 }
             }
         });
+
+        Button closeButton = (Button) findViewById(R.id.cancel_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
