@@ -30,7 +30,7 @@ public class GroupsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_groups, container, false);
 
         //setting group mocks
-        Trash defaultTrash = new Trash(0, null, null ,0, null, null);
+        Trash defaultTrash = new Trash(0, 0, 0 , 0, 0, null, null);
 
         Group group1 = new Group(0, "Polytech Nice Sophia", new ArrayList<Trash>());
         Group group2 = new Group(1, "Les calades", new ArrayList<>(Arrays.asList(defaultTrash, defaultTrash)));
