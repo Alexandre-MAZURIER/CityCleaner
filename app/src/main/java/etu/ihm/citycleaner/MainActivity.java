@@ -49,4 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, CreateTrashActivity.class);
         startActivity(intent);
     }
+
+    public void filterTrash(View view) {
+    }
 }
