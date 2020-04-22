@@ -16,6 +16,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import etu.ihm.citycleaner.database.TrashManager;
+import etu.ihm.citycleaner.ui.mytrashs.Trash;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -48,5 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public void addTrash(View view) {
         Intent intent = new Intent(MainActivity.this, CreateTrashActivity.class);
         startActivity(intent);
+    }
+
+    public void filterTrash(View view) {
     }
 }

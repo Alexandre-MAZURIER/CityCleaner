@@ -1,23 +1,24 @@
 package etu.ihm.citycleaner.ui.mytrashs;
 
-import java.util.Date;
-
 public class Trash {
 
-    private int type;
-    private String address;
-    private String city;
-    private int zip;
-    private String country;
-    private Date date;
+    private int id, type, clutter;
+    private double latitude, longitude;
+    private String date;
+    private String image;
 
-    public Trash(int type, String address, String city, int zip, String country, Date date){
+    public Trash() {
+
+    }
+
+    public Trash(int id, int type, int clutter, double latitude, double longitude, String date, String image) {
+        this.id = id;
         this.type = type;
-        this.address = address;
-        this.city = city;
-        this.zip = zip;
-        this.country = country;
+        this.clutter = clutter;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.date = date;
+        this.image = image;
     }
 
     public int getType() {
@@ -28,43 +29,51 @@ public class Trash {
         this.type = type;
     }
 
-    public String getAddress() {
-        return address;
+    public int getClutter() {
+        return clutter;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setClutter(int clutter) {
+        this.clutter = clutter;
     }
 
-    public String getCity() {
-        return city;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public int getZip() {
-        return zip;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setZip(int zip) {
-        this.zip = zip;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
