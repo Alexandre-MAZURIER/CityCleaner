@@ -2,12 +2,14 @@ package etu.ihm.citycleaner.ui.groups;
 
 import java.util.ArrayList;
 
+import etu.ihm.citycleaner.ui.mytrashs.Trash;
+
 public class Group {
     private int id;
     private String name;
-    private ArrayList<Integer> trashs;
+    private ArrayList<Trash> trashs;
 
-    public Group(int id, String name, ArrayList<Integer> thrashs) {
+    public Group(int id, String name, ArrayList<Trash> thrashs) {
         this.id = id;
         this.name = name;
         this.trashs = thrashs;
@@ -17,5 +19,5 @@ public class Group {
 
     public String getName() { return this.name; }
 
-    public ArrayList<Integer> getThrashs() { return this.trashs; }
+    public ArrayList<Trash> getThrashs() { return this.trashs; }
 }
