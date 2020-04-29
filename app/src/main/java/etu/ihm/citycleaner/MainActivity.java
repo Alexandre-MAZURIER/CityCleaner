@@ -16,7 +16,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+import etu.ihm.citycleaner.ui.groups.Group;
+import etu.ihm.citycleaner.ui.groups.GroupsFragment;
+import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
+import etu.ihm.citycleaner.ui.mytrashs.Trash;
+
+public class MainActivity extends AppCompatActivity implements AddGroupDialog.DialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,4 +61,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, FilterTrashActivity.class);
         startActivity(intent);
     }
+
+    //-------------------------- GROUP FRAGMENT ----------------------------------------------------
+
+    @Override
+    public void applyText(String groupName) {
+        if(groupName.equals("")) return;
+        Group test = new Group(0, groupName, new ArrayList<Trash>());
+        GroupsFragment.groupsMock.add(test);
+    }
+
+    //-------------------------- END GROUP FRAGMENT -----------------------------------------------
 }

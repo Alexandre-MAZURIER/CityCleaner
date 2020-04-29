@@ -20,7 +20,7 @@ import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
 import etu.ihm.citycleaner.ui.groups.dialogs.SearchGroupDialog;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
-public class GroupsFragment extends Fragment {
+public class GroupsFragment extends Fragment{
 
     private GroupsViewModel myTrashsViewModel;
     public static ArrayList<Group> groupsMock;
@@ -40,7 +40,7 @@ public class GroupsFragment extends Fragment {
         Group group3 = new Group(1, "Antoine Facq", new ArrayList<>(Arrays.asList(defaultTrash, defaultTrash, defaultTrash, defaultTrash, defaultTrash, defaultTrash, defaultTrash, defaultTrash)));
 
 
-        groupsMock = new ArrayList<>(Arrays.asList(group1, group2, group3, group1, group2, group3, group1, group2, group3, group1, group2, group3));
+        groupsMock = new ArrayList<>(Arrays.asList(group1, group2, group3));
         //------------------- MENU -----------------------------------------------------------------
         final TextView textView = root.findViewById(R.id.text_groups);
         textView.setText("Groupes");
