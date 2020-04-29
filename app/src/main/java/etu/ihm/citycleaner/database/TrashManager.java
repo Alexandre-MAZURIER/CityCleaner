@@ -19,7 +19,6 @@ public class TrashManager {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_DATE = "date";
     public static final String KEY_IMAGE_URL = "image";
-    public static final String KEY_ID_GROUP = "group";
 
     public static final String CREATE_TABLE_TRASH = "CREATE TABLE " + TABLE_NAME +
             " (" +
@@ -59,7 +58,6 @@ public class TrashManager {
         values.put(KEY_LONGITUDE, trash.getLongitude());
         values.put(KEY_DATE, trash.getDate());
         values.put(KEY_IMAGE_URL, trash.getImage());
-        values.put(KEY_ID_GROUP, trash.getGroup());
 
         // insert() retourne l'id du nouvel enregistrement inséré, ou -1 en cas d'erreur
         return db.insert(TABLE_NAME,null,values);
@@ -76,7 +74,6 @@ public class TrashManager {
         values.put(KEY_LONGITUDE, trash.getLongitude());
         values.put(KEY_DATE, trash.getDate().toString());
         values.put(KEY_IMAGE_URL, trash.getImage());
-        values.put(KEY_ID_GROUP, trash.getGroup());
 
         String where = KEY_ID+" = ?";
         String[] whereArgs = {trash.getId()+""};
@@ -107,7 +104,6 @@ public class TrashManager {
             t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
             t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
             t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
-            t.setGroup(c.getInt(c.getColumnIndex(KEY_ID_GROUP)));
             c.close();
         }
 
@@ -132,7 +128,6 @@ public class TrashManager {
                 t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
                 t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
                 t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
-                t.setGroup(c.getInt(c.getColumnIndex(KEY_ID_GROUP)));
                 trashList.add(t);
             }
             while (c.moveToNext());
