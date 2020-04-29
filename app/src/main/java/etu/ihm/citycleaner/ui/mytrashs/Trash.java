@@ -6,12 +6,13 @@ public class Trash {
     private double latitude, longitude;
     private String date;
     private String image;
+    private int group;
 
     public Trash() {
 
     }
 
-    public Trash(int id, int type, int clutter, double latitude, double longitude, String date, String image) {
+    public Trash(int id, int type, int clutter, double latitude, double longitude, String date, String image, int group) {
         this.id = id;
         this.type = type;
         this.clutter = clutter;
@@ -19,6 +20,7 @@ public class Trash {
         this.longitude = longitude;
         this.date = date;
         this.image = image;
+        this.group = group;
     }
 
     public int getType() {
@@ -75,5 +77,13 @@ public class Trash {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 }
