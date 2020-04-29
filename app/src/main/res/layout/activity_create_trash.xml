@@ -42,6 +42,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <RadioGroup
+            android:id="@+id/radioType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/garbage_type_text"
@@ -114,6 +115,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <RadioGroup
+            android:id="@+id/radioClutter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
