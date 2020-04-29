@@ -23,7 +23,7 @@ public class TrashManager {
 
     public static final String CREATE_TABLE_TRASH = "CREATE TABLE " + TABLE_NAME +
             " (" +
-            " "+KEY_ID+" INTEGER primary key," +
+            " "+KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             " "+KEY_TYPE+" INTEGER," +
             " "+KEY_CLUTTER+" INTEGER," +
             " "+KEY_LATITUDE+" REAL," +
