@@ -50,8 +50,8 @@ public class MapFragment extends Fragment {
 
         trashManager = new TrashManager(this.getContext());
         trashManager.open();
-        trashManager.addTrash(new Trash(0, 0, 1, 43.615479, 7.072214, "22/04/2020", ""));
-        trashManager.addTrash(new Trash(1, 0, 1, 43.61641, 7.06866, "22/04/2020", ""));
+        trashManager.addTrash(new Trash(0, 0, 1, 43.615479, 7.072214, "22/04/2020", "", 0));
+        trashManager.addTrash(new Trash(1, 0, 1, 43.61641, 7.06866, "22/04/2020", "", 0));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
