@@ -72,7 +72,7 @@ public class TrashManager {
         values.put(KEY_CLUTTER, trash.getClutter());
         values.put(KEY_LATITUDE, trash.getLatitude());
         values.put(KEY_LONGITUDE, trash.getLongitude());
-        values.put(KEY_DATE, trash.getDate().toString());
+        values.put(KEY_DATE, trash.getDate());
         values.put(KEY_IMAGE_URL, trash.getImage());
 
         String where = KEY_ID+" = ?";
