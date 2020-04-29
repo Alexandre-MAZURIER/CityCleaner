@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import etu.ihm.citycleaner.database.MySQLite;
 import etu.ihm.citycleaner.ui.groups.Group;
 
 
