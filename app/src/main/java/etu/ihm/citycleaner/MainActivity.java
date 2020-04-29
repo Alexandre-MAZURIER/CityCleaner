@@ -16,9 +16,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import etu.ihm.citycleaner.database.TrashManager;
-import etu.ihm.citycleaner.ui.mytrashs.Trash;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override

@@ -114,9 +114,9 @@ public class CreateTrashActivity extends Activity {
 
 
 
-                Trash trash = new Trash(6, radioType, radioClutter, latitude, longitude, Calendar.getInstance().getTime().toString(), "https://upload.wikimedia.org/wikipedia/commons/3/33/Pedro_playing_for_Chelsea.jpg");
+                Trash trash = new Trash(6, radioType, radioClutter, latitude, longitude, Calendar.getInstance().getTime().toString(), "https://upload.wikimedia.org/wikipedia/commons/3/33/Pedro_playing_for_Chelsea.jpg", 0);
 
-
+                databaseManager.open();
                 databaseManager.addTrash(trash);
 
                 databaseManager.close();
