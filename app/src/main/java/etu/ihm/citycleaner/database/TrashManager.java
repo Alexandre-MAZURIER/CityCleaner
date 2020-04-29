@@ -29,8 +29,7 @@ public class TrashManager {
             " "+KEY_LATITUDE+" REAL," +
             " "+KEY_LONGITUDE+" REAL," +
             " "+KEY_DATE+" TEXT," +
-            " "+KEY_IMAGE_URL+" TEXT," +
-            " "+KEY_ID_GROUP+" INTEGER" +
+            " "+KEY_IMAGE_URL+" TEXT" +
             ");";
     private MySQLite maBaseSQLite; // notre gestionnaire du fichier SQLite
     private SQLiteDatabase db;
