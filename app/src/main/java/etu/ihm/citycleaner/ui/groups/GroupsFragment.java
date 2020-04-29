@@ -12,11 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
+import etu.ihm.citycleaner.ui.groups.dialogs.SearchGroupDialog;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class GroupsFragment extends Fragment {
@@ -44,11 +45,19 @@ public class GroupsFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_groups);
         textView.setText("Groupes");
 
+        final Button searchGroupButton = root.findViewById(R.id.search_group_button);
+        searchGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSearchGroupDialog();
+            }
+        });
+
         final Button addGroupButton = root.findViewById(R.id.add_group_button);
         addGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //openDialog();
+                openAddGroupDialog();
             }
         });
 
@@ -60,5 +69,15 @@ public class GroupsFragment extends Fragment {
         groupsList.setAdapter(adapter);
 
         return root;
+    }
+
+    private void openAddGroupDialog() {
+        AddGroupDialog addGroupDialog = new AddGroupDialog();
+        addGroupDialog.show(getChildFragmentManager(), "add group");
+    }
+
+    private void openSearchGroupDialog() {
+        SearchGroupDialog searchGroupDialog = new SearchGroupDialog();
+        searchGroupDialog.show(getChildFragmentManager(), "search group");
     }
 }
