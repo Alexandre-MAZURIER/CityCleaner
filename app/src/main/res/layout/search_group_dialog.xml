@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,12 +8,24 @@
         android:id="@+id/search_group_editText"
         android:layout_width="match_parent"
         android:layout_height="40sp"
-        android:hint="Rechercher un groupe"
         android:layout_marginTop="20sp"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
         app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:hint="Rechercher un groupe"
         />
+
+    <ListView
+        android:id="@+id/search_groups_list"
+        android:layout_marginTop="100sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="80sp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp" />
 
 
 </RelativeLayout>

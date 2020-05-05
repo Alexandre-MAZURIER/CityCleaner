@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 
 public class SearchGroupDialog extends AppCompatDialogFragment {
 
@@ -33,6 +35,11 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
                 });
 
         this.editText = view.findViewById(R.id.search_group_editText);
+
+        ListView groupsList = view.findViewById(R.id.search_groups_list);
+
+        SearchGroupListAdapter adapter = new SearchGroupListAdapter(getActivity(), R.layout.adapter_search_groups_list, GroupsFragment.groupsMock);
+        groupsList.setAdapter(adapter);
 
         return builder.create();
     }
