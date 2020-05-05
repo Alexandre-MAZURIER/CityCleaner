@@ -3,6 +3,7 @@ package etu.ihm.citycleaner.ui.groups;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         int id = getItem(position).getId();
         String groupName = getItem(position).getName();
-        String trashNumber = Integer.toString(getItem(position).getThrashes().size());
+        String trashNumber = Integer.toString(getItem(position).getThrashs().size());
 
         LayoutInflater inflater = LayoutInflater.from(this.mContext);
         convertView = inflater.inflate(this.mResource, parent, false);
