@@ -99,6 +99,7 @@ public class TrashManager {
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+KEY_ID+"="+id, null);
         if (c.moveToFirst()) {
             t.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+            t.setType(c.getInt(c.getColumnIndex(KEY_TYPE)));
             t.setClutter(c.getInt(c.getColumnIndex(KEY_CLUTTER)));
             t.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
             t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
@@ -123,6 +124,7 @@ public class TrashManager {
             do {
                 Trash t = new Trash();
                 t.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                t.setType(c.getInt(c.getColumnIndex(KEY_TYPE)));
                 t.setClutter(c.getInt(c.getColumnIndex(KEY_CLUTTER)));
                 t.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
                 t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
