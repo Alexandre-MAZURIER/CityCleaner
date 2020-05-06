@@ -61,12 +61,7 @@ public class MapFragment extends Fragment {
             // For showing a move to my location button
             googleMap.setMyLocationEnabled(true);
 
-            for(Trash t : trashManager.getTrashs()) {
-                LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(latLng).title("Polytech Nice Sophia").snippet("La petite Jaja"));
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            }
+            loadTrashesFromDb();
 
             // For zooming automatically to the location of the marker
 
@@ -74,6 +69,15 @@ public class MapFragment extends Fragment {
         });
 
         return root;
+    }
+
+    public void loadTrashesFromDb(){
+        for(Trash t : trashManager.getTrashs()) {
+            LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(latLng).title("Polytech Nice Sophia").snippet("La petite Jaja"));
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     @Override
