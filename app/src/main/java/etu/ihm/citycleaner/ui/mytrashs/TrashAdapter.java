@@ -12,8 +12,14 @@ import java.util.ArrayList;
 import etu.ihm.citycleaner.R;
 
 public class TrashAdapter extends ArrayAdapter<Trash> {
-    public TrashAdapter(Context context, ArrayList<Trash> trashs) {
-        super(context, 0, trashs);
+    private static final String TAG = "TrashsAdapter";
+    private Context mContext;
+    private int mResource;
+
+    public TrashAdapter(Context context, int resource, ArrayList<Trash> trashs) {
+        super(context, resource, trashs);
+        this.mContext = context;
+        this.mResource = resource;
     }
 
     @Override
@@ -24,22 +30,24 @@ public class TrashAdapter extends ArrayAdapter<Trash> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_trash, null);
         }
-
+        TextView textViewType = convertView.findViewById(R.id.trash_type);
+        switch (trash.getType()){
+            case 0:
+                textViewType.setText("Déchet type 1");
+                break;
+            case 1:
+                textViewType.setText("Déchet type 2");
+                break;
+            case 2:
+                textViewType.setText("Déchet type 3");
+                break;
+            case 3:
+                textViewType.setText("Déchet type 4");
+                break;
+        }
         TextView textViewDate = convertView.findViewById(R.id.trash_date);
         textViewDate.setText(trash.getDate().toString());
 
-        TextView textViewAddress = convertView.findViewById(R.id.trash_address);
-        //textViewAddress.setText(trash.getAddress());
-
-        TextView textViewCity = convertView.findViewById(R.id.trash_city);
-        //textViewCity.setText(trash.getCity());
-
-        TextView textViewZIP = convertView.findViewById(R.id.trash_zip);
-        //textViewZIP.setText(trash.getZip() +"");
-
-        TextView textViewCountry = convertView.findViewById(R.id.trash_country);
-        //textViewCountry.setText(trash.getCountry());
-        // Return the completed view to render on screen
         return convertView;
     }
 }
