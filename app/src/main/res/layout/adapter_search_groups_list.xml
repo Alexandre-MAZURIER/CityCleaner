@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100"
-    android:background="#efebf5"
-    >
+    android:orientation="vertical" >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70sp"
-        android:layout_weight="20"
         android:gravity="center_vertical"
         android:id="@+id/searched_group_name"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingStart="8sp"
         android:paddingEnd="8sp"
+        android:ems="10"
         android:text="Nouveau Groupe"
+        android:layout_toStartOf="@+id/layout_add_searched_group"
+        android:layout_alignBottom="@+id/layout_add_searched_group"
         />
 
+    <RelativeLayout
+        android:id="@+id/layout_add_searched_group"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:padding="10sp"
+        android:layout_alignParentEnd="true"
+        >
     <Button
         android:id="@+id/add_searched_group"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
+        android:layout_height="match_parent"
+
         android:background="@drawable/ic_add"
-        android:layout_weight="80"
         />
+    </RelativeLayout>
 
 
 
-</LinearLayout>
+</RelativeLayout>
