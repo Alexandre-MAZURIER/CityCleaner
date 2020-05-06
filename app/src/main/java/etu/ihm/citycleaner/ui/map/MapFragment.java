@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -99,13 +100,13 @@ public class MapFragment extends Fragment {
         View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
         ImageView markerIcon = customMarkerView.findViewById(R.id.trashIcon);
         if(n == 0) {
-            markerIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_greenmarker));
+            markerIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_greenmarker));
         } else if (n == 1) {
-            markerIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_plasticmarker));
+            markerIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_plasticmarker));
         } else if (n == 2) {
-            markerIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_bulkymarker));
+            markerIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_bulkymarker));
         } else {
-            markerIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_othermarker));
+            markerIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_othermarker));
         }
 
 
