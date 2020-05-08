@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBlancTifa"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,38 +42,37 @@
 
             <CheckBox
                 android:id="@+id/green"
-                android:layout_width="252dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_green"
-                android:paddingLeft="30dp"
+                android:paddingStart="10dp"
                 android:text=" Déchets Verts" />
 
             <CheckBox
                 android:id="@+id/plastic"
-                android:layout_width="252dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_plastic"
-                android:paddingLeft="30dp"
+                android:paddingStart="10dp"
                 android:text=" Déchets Plastique" />
 
             <CheckBox
                 android:id="@+id/furniture"
-                android:layout_width="256dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_furniture"
-                android:paddingLeft="30dp"
-
+                android:paddingStart="10dp"
                 android:text=" Encombrants" />
 
             <CheckBox
                 android:id="@+id/other"
-                android:layout_width="252dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_other"
-                android:paddingLeft="30dp"
+                android:paddingStart="10dp"
                 android:text=" Autres" />
         </RadioGroup>
 
@@ -82,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/radioType"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent">
 
             <Button
