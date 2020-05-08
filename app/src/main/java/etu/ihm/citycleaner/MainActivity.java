@@ -18,22 +18,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 
 import etu.ihm.citycleaner.ui.groups.Group;
 import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
+import etu.ihm.citycleaner.ui.filter.DialogFilter;
+
 
 public class MainActivity extends AppCompatActivity implements AddGroupDialog.DialogListener {
-=======
-import etu.ihm.citycleaner.database.TrashManager;
-import etu.ihm.citycleaner.ui.filter.DialogFilter;
-import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
-public class MainActivity extends AppCompatActivity {
->>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
