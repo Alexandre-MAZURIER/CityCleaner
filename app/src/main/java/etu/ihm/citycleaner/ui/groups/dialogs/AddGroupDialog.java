@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -41,6 +42,8 @@ public class AddGroupDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String groupName = editText.getText().toString();
                         listener.applyText(groupName);
+                        Toast feedback = Toast.makeText(getContext(), groupName + " créé", Toast.LENGTH_LONG);
+                        feedback.show();
                     }
                 });
 

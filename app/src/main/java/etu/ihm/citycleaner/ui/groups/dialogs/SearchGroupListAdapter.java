@@ -48,7 +48,7 @@ public class SearchGroupListAdapter extends ArrayAdapter<Group> {
         addGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast feedback = Toast.makeText(getContext(), groupName + "ajouté à vos groupes", Toast.LENGTH_LONG);
+                Toast feedback = Toast.makeText(getContext(), groupName + " ajouté à vos groupes", Toast.LENGTH_LONG);
                 feedback.show();
             }
         });

@@ -11,7 +11,10 @@
     <RelativeLayout
         android:id="@+id/groups_menu"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20sp"
         android:layout_marginBottom="20dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="3dp"
@@ -27,20 +30,34 @@
             android:textColor="#000000"
             android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/search_group_button"
-            android:layout_width="70sp"
-            android:layout_height="70sp"
-            android:background="@drawable/ic_search"
-            />
 
-        <Button
-            android:id="@+id/add_group_button"
-            android:layout_width="70sp"
-            android:layout_height="70sp"
-            android:background="@drawable/ic_add"
-            app:layout_constraintDimensionRatio="1"
-            android:layout_alignParentEnd="true"/>
+        <RelativeLayout
+            android:layout_width="120sp"
+            android:layout_height="60sp"
+            android:layout_alignParentEnd="true">
+
+            <RelativeLayout
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                app:layout_constraintDimensionRatio="1"
+                android:layout_alignParentEnd="true">
+                <Button
+                    android:id="@+id/add_group_button"
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:background="@drawable/ic_add"
+                    />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/search_group_button"
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                app:layout_constraintDimensionRatio="1"
+                android:background="@drawable/ic_search"
+                />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
