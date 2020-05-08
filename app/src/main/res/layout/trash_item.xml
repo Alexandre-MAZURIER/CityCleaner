@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="0dp"
-    android:padding="0dp"
     >
 
     <androidx.cardview.widget.CardView
@@ -13,7 +11,6 @@
         android:layout_height="wrap_content"
         app:cardElevation="6dp"
         app:cardCornerRadius="1dp"
-        android:layout_margin="8dp"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl"
@@ -36,20 +33,19 @@
                 android:id="@+id/icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_green"
                 app:layout_constraintTop_toBottomOf="@id/date"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_green"/>
 
             <TextView
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="4dp"
                 android:text="Déchet Plastique"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toTopOf="@id/icon"
                 app:layout_constraintBottom_toBottomOf="@id/icon"
@@ -69,19 +65,17 @@
                 android:background="@drawable/ic_localisationtrash"
                 app:layout_constraintTop_toBottomOf="@id/icon"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"/>
 
             <TextView
                 android:id="@+id/adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="4dp"
                 android:text="Polytech Nice Sophia"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/iconLocalisation"
                 app:layout_constraintTop_toTopOf="@id/iconLocalisation"
-                app:layout_constraintBottom_toBottomOf="@id/iconLocalisation"
                 />
 
             <ImageView
@@ -92,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iconLocalisation"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="40dp"/>
 
             <TextView
                 android:id="@+id/nbLike"

@@ -30,7 +30,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
 
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.TrashManager;
@@ -60,8 +63,8 @@ public class MapFragment extends Fragment {
 
         trashManager = new TrashManager(this.getContext());
         trashManager.open();
-        trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, "22/04/2020", ""));
-        trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, "22/04/2020", ""));
+        //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
+        //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), ""));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -83,14 +86,18 @@ public class MapFragment extends Fragment {
 
     public void loadTrashesFromDb(){
         for(Trash t : trashManager.getTrashs()) {
+            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
+            googleMap.setInfoWindowAdapter(customInfoWindow);
             Log.e("TrashType", t.getType() + "");
             LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
-            googleMap.addMarker(new MarkerOptions()
+            Marker m = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title("Polytech Nice Sophia")
                     .snippet("La petite Jaja")
                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
                     ));
+            m.setTag(t);
+            m.showInfoWindow();
 
 
             CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
@@ -99,8 +106,6 @@ public class MapFragment extends Fragment {
     }
 
     private Bitmap getMarkerBitmapFromView(int n) {
-
-        //HERE YOU CAN ADD YOUR CUSTOM VIEW
         View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
         ImageView markerIcon = customMarkerView.findViewById(R.id.trashIcon);
         if(n == 0) {
@@ -112,9 +117,6 @@ public class MapFragment extends Fragment {
         } else {
             markerIcon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_othermarker));
         }
-
-
-        //IN THIS EXAMPLE WE ARE TAKING TEXTVIEW BUT YOU CAN ALSO TAKE ANY KIND OF VIEW LIKE IMAGEVIEW, BUTTON ETC.
         customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
         customMarkerView.buildDrawingCache();
