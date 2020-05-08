@@ -28,17 +28,10 @@ public class MyTrashsFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(MyTrashsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_my_trashs, container, false);
-        final TextView textView = root.findViewById(R.id.text_my_trashs);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         ListView listView = root.findViewById(R.id.contenu_my_trashs);
         ArrayList<Trash> listTrash = myTrashTemporaire();
-        TrashAdapter trashAdapter = new TrashAdapter(getContext(), listTrash);
+        TrashAdapter trashAdapter = new TrashAdapter(getActivity(),R.layout.fragment_trash, listTrash);
         listView.setAdapter(trashAdapter);
 
 
@@ -48,9 +41,13 @@ public class MyTrashsFragment extends Fragment {
     //temporaire tant qu'on a pas de BDD ou autre
     public ArrayList<Trash> myTrashTemporaire(){
         ArrayList<Trash> listTrash = new ArrayList<>();
-        /*listTrash.add(new Trash(0, "6 rue de l'aire", "Plan de Cuques", 13380, "France", new Date()));
-        listTrash.add(new Trash(1, "124 rue Viktor", "Putier-sur-Marnes", 56000, "France", new Date()));
-        listTrash.add(new Trash(2, "13 avenue Damso", "Choux sur Bruxelle", 68452, "France", new Date()));*/
+        Trash trash1 = new Trash(0,0,0,0,0,"01/01/01", "oui");
+        Trash trash2 = new Trash(1,1,0,0,0,"01/01/01", "oui");
+        Trash trash3 = new Trash(2,2,0,0,0,"01/01/01", "oui");
+        listTrash.add(trash1);
+        listTrash.add(trash2);
+        listTrash.add(trash3);
+
         return listTrash;
     }
 }
