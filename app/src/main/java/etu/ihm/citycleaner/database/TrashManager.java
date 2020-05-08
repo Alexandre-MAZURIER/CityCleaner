@@ -22,7 +22,7 @@ public class TrashManager {
 
     public static final String CREATE_TABLE_TRASH = "CREATE TABLE " + TABLE_NAME +
             " (" +
-            " "+KEY_ID+" INTEGER primary key," +
+            " "+KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             " "+KEY_TYPE+" INTEGER," +
             " "+KEY_CLUTTER+" INTEGER," +
             " "+KEY_LATITUDE+" REAL," +
@@ -72,7 +72,7 @@ public class TrashManager {
         values.put(KEY_CLUTTER, trash.getClutter());
         values.put(KEY_LATITUDE, trash.getLatitude());
         values.put(KEY_LONGITUDE, trash.getLongitude());
-        values.put(KEY_DATE, trash.getDate());
+        values.put(KEY_DATE, trash.getDate().toString());
         values.put(KEY_IMAGE_URL, trash.getImage());
 
         String where = KEY_ID+" = ?";
@@ -99,6 +99,7 @@ public class TrashManager {
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+KEY_ID+"="+id, null);
         if (c.moveToFirst()) {
             t.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+            t.setType(c.getInt(c.getColumnIndex(KEY_TYPE)));
             t.setClutter(c.getInt(c.getColumnIndex(KEY_CLUTTER)));
             t.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
             t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
@@ -123,6 +124,7 @@ public class TrashManager {
             do {
                 Trash t = new Trash();
                 t.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                t.setType(c.getInt(c.getColumnIndex(KEY_TYPE)));
                 t.setClutter(c.getInt(c.getColumnIndex(KEY_CLUTTER)));
                 t.setLatitude(c.getDouble(c.getColumnIndex(KEY_LATITUDE)));
                 t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));

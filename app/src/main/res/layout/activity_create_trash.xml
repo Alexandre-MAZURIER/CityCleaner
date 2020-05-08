@@ -22,14 +22,13 @@
         android:id="@+id/view3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlancTifa"
-        app:layout_constraintTop_toTopOf="@id/text_createtrash"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorBlancTifa"
         android:padding="15dp"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_createtrash">
 
         <TextView
             android:id="@+id/garbage_type_text"
@@ -38,55 +37,64 @@
             android:text="Type de déchet"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
             android:id="@+id/radioType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/garbage_type_text"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/garbage_type_text">
 
             <RadioButton
-                android:id="@+id/green"
+                android:id="@+id/green_garbage"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_green"
+                android:onClick="onTypeChange"
                 android:paddingLeft="30dp"
                 android:text=" Déchets Verts" />
 
             <RadioButton
-                android:id="@+id/plastic"
+                android:id="@+id/plastic_garbage"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_plastic"
+                android:onClick="onTypeChange"
                 android:paddingLeft="30dp"
-                android:text=" Déchets Plastique" />
+                android:text=" Déchets Plastique"
+
+                />
 
             <RadioButton
-                android:id="@+id/furniture"
+                android:id="@+id/furniture_garbage"
                 android:layout_width="256dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_furniture"
-                android:paddingLeft="30dp"
+                android:onClick="onTypeChange"
 
-                android:text=" Encombrants" />
+                android:paddingLeft="30dp"
+                android:text=" Encombrants"
+
+                />
 
             <RadioButton
-                android:id="@+id/other"
+                android:id="@+id/other_garbage"
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_other"
+                android:onClick="onTypeChange"
                 android:paddingLeft="30dp"
-                android:text=" Autres" />
+                android:text=" Autres"
+
+                />
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -95,14 +103,13 @@
         android:id="@+id/view4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlancTifa"
-        app:layout_constraintTop_toBottomOf="@id/view3"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorBlancTifa"
         android:padding="15dp"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view3">
 
         <TextView
             android:id="@+id/garbage_size_text"
@@ -111,37 +118,40 @@
             android:text="Encombrement"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
             android:id="@+id/radioClutter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/garbage_size_text"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="15dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/garbage_size_text">
 
             <RadioButton
                 android:id="@+id/little_bin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:drawableStart="@drawable/ic_little_bin" />
+                android:drawableStart="@drawable/ic_little_bin"
+                android:onClick="onSizeChange" />
 
             <RadioButton
                 android:id="@+id/medium_bin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_medium_bin" />
+                android:drawableStart="@drawable/ic_medium_bin"
+                android:onClick="onSizeChange" />
+
 
             <RadioButton
                 android:id="@+id/large_bin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_large_bin" />
+                android:drawableStart="@drawable/ic_large_bin"
+                android:onClick="onSizeChange" />
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -205,12 +215,14 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_fab_extended_master_shape"
         android:drawableStart="@drawable/ic_send"
+        android:onClick="onSendGarbage"
         android:padding="30dp"
+
         android:text="Envoyer"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toTopOf="@id/cancel_button"
         app:layout_constraintBottom_toBottomOf="@id/cancel_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cancel_button" />
 
     <ImageView
 
