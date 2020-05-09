@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.Util;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
@@ -77,29 +78,10 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
 
 
 
-        adress.setText(getCompleteAddressString(trash.getLatitude(), trash.getLongitude()));
+        adress.setText(Util.getCompleteAddressString(context, trash.getLatitude(), trash.getLongitude()));
 
         return view;
     }
 
-    private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
-        String strAdd = "";
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
-            if (addresses != null) {
-                Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder("");
 
-                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
-                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
-                }
-                strAdd = strReturnedAddress.toString();
-            } else {
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return strAdd.replace(", ","\n");
-    }
 }
