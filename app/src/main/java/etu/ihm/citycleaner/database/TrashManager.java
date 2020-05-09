@@ -19,6 +19,7 @@ public class TrashManager {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_DATE = "date";
     public static final String KEY_IMAGE_URL = "image";
+    public static final String KEY_NB_LIKE = "nbLike";
 
     public static final String CREATE_TABLE_TRASH = "CREATE TABLE " + TABLE_NAME +
             " (" +
@@ -28,7 +29,8 @@ public class TrashManager {
             " "+KEY_LATITUDE+" REAL," +
             " "+KEY_LONGITUDE+" REAL," +
             " "+KEY_DATE+" TEXT," +
-            " "+KEY_IMAGE_URL+" TEXT" +
+            " "+KEY_IMAGE_URL+" TEXT," +
+            " "+KEY_NB_LIKE+" INTEGER" +
             ");";
     private MySQLite maBaseSQLite; // notre gestionnaire du fichier SQLite
     private SQLiteDatabase db;
@@ -58,6 +60,7 @@ public class TrashManager {
         values.put(KEY_LONGITUDE, trash.getLongitude());
         values.put(KEY_DATE, trash.getDate());
         values.put(KEY_IMAGE_URL, trash.getImage());
+        values.put(KEY_NB_LIKE, trash.getNbLike());
 
         // insert() retourne l'id du nouvel enregistrement inséré, ou -1 en cas d'erreur
         return db.insert(TABLE_NAME,null,values);
@@ -74,6 +77,7 @@ public class TrashManager {
         values.put(KEY_LONGITUDE, trash.getLongitude());
         values.put(KEY_DATE, trash.getDate().toString());
         values.put(KEY_IMAGE_URL, trash.getImage());
+        values.put(KEY_NB_LIKE, trash.getNbLike());
 
         String where = KEY_ID+" = ?";
         String[] whereArgs = {trash.getId()+""};
@@ -105,6 +109,7 @@ public class TrashManager {
             t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
             t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
             t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
+            //t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
             c.close();
         }
 
@@ -113,7 +118,7 @@ public class TrashManager {
 
     public Cursor getTrashscursor() {
         // sélection de tous les enregistrements de la table
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
     public ArrayList<Trash> getTrashs() {
@@ -130,6 +135,7 @@ public class TrashManager {
                 t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
                 t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
                 t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
+                //t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
                 trashList.add(t);
             }
             while (c.moveToNext());

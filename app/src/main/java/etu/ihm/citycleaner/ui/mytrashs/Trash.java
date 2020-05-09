@@ -6,6 +6,7 @@ public class Trash {
     private double latitude, longitude;
     private String date;
     private String image;
+    private int nbLike;
 
     public Trash() {
 
@@ -19,6 +20,7 @@ public class Trash {
         this.longitude = longitude;
         this.date = date;
         this.image = image;
+        this.nbLike = 0;
     }
 
     public int getType() {
@@ -69,11 +71,27 @@ public class Trash {
         this.image = image;
     }
 
+    public void setNbLike(int nbLike) {
+        this.nbLike = nbLike;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNbLike(){
+        return nbLike;
+    }
+
+    public void addLike(){
+        ++nbLike;
+    }
+
+    public void removeLike(){
+        --nbLike;
     }
 }
