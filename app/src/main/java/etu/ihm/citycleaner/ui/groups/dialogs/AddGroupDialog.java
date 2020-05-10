@@ -12,21 +12,34 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.Fragment;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.database.GroupManager;
+import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 
 public class AddGroupDialog extends AppCompatDialogFragment {
 
-    private EditText editText;
+    private GroupManager databaseManager;
 
+    private EditText editText;
     private DialogListener listener;
+
+    private GroupsFragment parentFragment;
+
+    public AddGroupDialog(GroupsFragment parentFragment) {
+        this.parentFragment = parentFragment;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        this.databaseManager = new GroupManager(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_group_dialog, null);
+        this.editText = view.findViewById(R.id.group_name_editText);
 
         //we invert add and cancel in the code to have create before cancel when reading
         builder.setView(view)
@@ -44,10 +57,16 @@ public class AddGroupDialog extends AppCompatDialogFragment {
                         listener.applyText(groupName);
                         Toast feedback = Toast.makeText(getContext(), groupName + " créé", Toast.LENGTH_LONG);
                         feedback.show();
+
+                        //we add the group in the database
+                        databaseManager.open();
+                        databaseManager.addGroup(groupName);
+                        databaseManager.close();
+
+                        //we update the list
+                        parentFragment.updateGroupsList();
                     }
                 });
-
-        this.editText = view.findViewById(R.id.group_name_editText);
 
         return builder.create();
     }

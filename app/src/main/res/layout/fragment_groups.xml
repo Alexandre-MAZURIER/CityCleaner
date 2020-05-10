@@ -51,10 +51,12 @@
 
             <Button
                 android:id="@+id/search_group_button"
-                android:layout_width="60sp"
-                android:layout_height="60sp"
+                android:layout_marginStart="7.5sp"
+                android:layout_marginTop="7.5sp"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
                 app:layout_constraintDimensionRatio="1"
-                android:background="@drawable/ic_search"
+                android:background="@drawable/ic_search_purple"
                 />
 
         </RelativeLayout>

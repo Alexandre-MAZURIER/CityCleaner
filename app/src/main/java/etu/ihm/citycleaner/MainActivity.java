@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity implements AddGroupDialog.Di
     @Override
     public void applyText(String groupName) {
         if(groupName.equals("")) return;
-        Group test = new Group(0, groupName, new ArrayList<Trash>());
-        GroupsFragment.groupsMock.add(test);
+        //TODO add group in database
     }
 
     //-------------------------- END GROUP FRAGMENT -----------------------------------------------

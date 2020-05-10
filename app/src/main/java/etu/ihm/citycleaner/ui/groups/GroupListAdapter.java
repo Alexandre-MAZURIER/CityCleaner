@@ -10,38 +10,45 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.database.GroupManager;
 
 public class GroupListAdapter extends ArrayAdapter<Group> {
 
     private static final String TAG = "GroupListAdapter";
     private Context mContext;
     private int mResource;
+    private GroupsFragment groupsFragment;
 
-    public GroupListAdapter(@NonNull Context context, int resource, ArrayList<Group> groups) {
+    private GroupManager databaseManager;
+
+    public GroupListAdapter(@NonNull Context context, int resource, ArrayList<Group> groups, GroupsFragment groupsFragment) {
         super(context, resource, groups);
         this.mContext = context;
         this.mResource = resource;
+        this.databaseManager = new GroupManager(getContext());
+        this.groupsFragment = groupsFragment;
     }
 
     @NonNull
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        int id = getItem(position).getId();
-        String groupName = getItem(position).getName();
+        final int groupId = getItem(position).getId();
+        final String groupName = getItem(position).getName();
         String trashNumber = Integer.toString(getItem(position).getThrashs().size());
 
         LayoutInflater inflater = LayoutInflater.from(this.mContext);
         convertView = inflater.inflate(this.mResource, parent, false);
 
-        TextView groupNameView = (TextView) convertView.findViewById(R.id.group_name);
-        TextView trashNumberView = (TextView) convertView.findViewById(R.id.group_trash_number);
-        Button deleteGroup = (Button) convertView.findViewById(R.id.delete_group_button);
+        TextView groupNameView = convertView.findViewById(R.id.group_name);
+        TextView trashNumberView = convertView.findViewById(R.id.group_trash_number);
+        Button deleteGroup = convertView.findViewById(R.id.delete_group_button);
 
         groupNameView.setText(groupName);
         trashNumberView.setText(trashNumber);
@@ -54,8 +61,15 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
                 popup.setNegativeButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GroupsFragment.groupsMock.remove(position);
-                        GroupsFragment.adapter.notifyDataSetChanged();
+                        databaseManager.open();
+                        databaseManager.removeGroup(groupId);
+                        databaseManager.close();
+
+                        //we update the list
+                        groupsFragment.updateGroupsList();
+
+                        Toast.makeText(getContext(), groupName + " supprimé", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 

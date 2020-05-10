@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal" android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:weightSum="100"
-android:background="#efebf5"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efebf5"
+    android:elevation="8dp">
 
 <TextView
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="60sp"
-    android:layout_weight="33.3"
     android:gravity="center_vertical"
     android:id="@+id/group_name"
     android:textSize="18sp"
     android:textStyle="bold"
     android:paddingStart="8sp"
-    tools:ignore="RtlSymmetry" />
+    tools:ignore="RtlSymmetry"
+    android:text="Nom du groupe"/>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="60sp"
-    android:layout_weight="66.6"
-    android:orientation="horizontal"
-    android:weightSum="1.0">
-
-    <TextView
-        android:id="@+id/group_trash_number"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="120sp"
         android:layout_height="60sp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_weight="0.6"
-        tools:ignore="NestedWeights" />
+        android:orientation="horizontal"
+        android:layout_alignParentEnd="true">
 
-    <Button
-        android:id="@+id/delete_group_button"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:layout_gravity="center"
-        android:layout_weight="0.4"
-        android:background="@drawable/ic_close" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/group_trash_number"
+            android:layout_width="40sp"
+            android:layout_height="60sp"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:text="189"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="NestedWeights" />
+
+        <Button
+            android:layout_width="20sp"
+            android:layout_height="25sp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_trash_can" />
+
+        <Button
+            android:id="@+id/delete_group_button"
+            android:layout_width="32sp"
+            android:layout_height="45sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="15sp"
+            android:layout_marginBottom="7.5sp"
+            android:background="@drawable/ic_delete_group" />
+
+    </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
