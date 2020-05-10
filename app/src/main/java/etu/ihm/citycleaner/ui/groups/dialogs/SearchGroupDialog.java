@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import etu.ihm.citycleaner.R;
@@ -24,8 +23,15 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
     private EditText editText;
     private GroupsFragment parentFragment;
 
+    private ArrayList<Group> groupArrayList;
+    private ArrayList<Group> groupsToSearch;
+    private SearchGroupListAdapter adapter;
+
     public SearchGroupDialog(GroupsFragment parentFragment) {
         this.parentFragment = parentFragment;
+        this.groupsToSearch = new ArrayList<>();
+        this.groupArrayList = new ArrayList<>();
+        this.adapter = null;
     }
 
     @Override
@@ -48,18 +54,31 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
 
         this.editText = view.findViewById(R.id.search_group_editText);
 
-        //we get the group list from the database, then we display it with an adapter
-        databaseManager.open();
-        ArrayList<Group> groupArrayList = databaseManager.getGroups();
-        databaseManager.close();
-
-
-
-
         ListView groupsList = view.findViewById(R.id.search_groups_list);
-        SearchGroupListAdapter adapter = new SearchGroupListAdapter(getActivity(), R.layout.adapter_search_groups_list, groupArrayList, parentFragment);
+        adapter = new SearchGroupListAdapter(getActivity(),
+                R.layout.adapter_search_groups_list,
+                this.groupsToSearch,
+                parentFragment,
+                this);
         groupsList.setAdapter(adapter);
 
+        this.updateGroupsToSearch();
+
         return builder.create();
+    }
+
+    public void updateGroupsToSearch() {
+        //we get the group list from the database, then we display it with an adapter
+        databaseManager.open();
+        this.groupArrayList = databaseManager.getGroups();
+        databaseManager.close();
+
+        this.groupsToSearch.clear();
+
+        for(Group group : this.groupArrayList) {
+            if(group.isMyGroup() == 0) this.groupsToSearch.add(group);
+        }
+
+        this.adapter.notifyDataSetChanged();
     }
 }

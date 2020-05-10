@@ -25,16 +25,18 @@ import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 public class SearchGroupListAdapter extends ArrayAdapter<Group> {
 
     private GroupsFragment parentFragment;
+    private SearchGroupDialog parentDialog;
 
     private static final String TAG = "GroupListAdapter";
     private Context mContext;
     private int mResource;
 
-    public SearchGroupListAdapter(@NonNull Context context, int resource, ArrayList<Group> groups, GroupsFragment parentFragment) {
+    public SearchGroupListAdapter(@NonNull Context context, int resource, ArrayList<Group> groups, GroupsFragment parentFragment, SearchGroupDialog parentDialog) {
         super(context, resource, groups);
         this.mContext = context;
         this.mResource = resource;
         this.parentFragment = parentFragment;
+        this.parentDialog = parentDialog;
     }
 
     @NonNull
@@ -64,9 +66,10 @@ public class SearchGroupListAdapter extends ArrayAdapter<Group> {
                 databaseManager.updateGroup(groupToUpdate);
                 databaseManager.close();
 
-                //we update the list
+                //we update the lists
                 parentFragment.updateGroupsList();
                 parentFragment.updateMyGroupsList();
+                parentDialog.updateGroupsToSearch();
 
                 //we send feedback to the user
                 Toast feedback = Toast.makeText(getContext(), groupName + " ajouté à vos groupes", Toast.LENGTH_LONG);
