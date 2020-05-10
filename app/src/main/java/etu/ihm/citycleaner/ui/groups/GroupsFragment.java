@@ -1,5 +1,6 @@
 package etu.ihm.citycleaner.ui.groups;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +23,22 @@ public class GroupsFragment extends Fragment{
 
     public static ArrayList<Group> groups;
 
-    private GroupManager databaseManager;
-    private ListView groupsList;
-    public static GroupListAdapter adapter;
+    private ArrayList<Group> myGroupsList;
+    private  GroupManager databaseManager;
+    private GroupListAdapter adapter;
+
+    public GroupListAdapter getGroupListAdapter() { return this.adapter; }
+
+    public GroupManager getDatabaseManager() { return this.databaseManager; }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_groups, container, false);
 
-        this.databaseManager = new GroupManager(getActivity());
+        databaseManager = new GroupManager(getActivity());
+        GroupsFragment.groups = new ArrayList<>();
+        myGroupsList = new ArrayList<>();
         //setting group mocks
 
         //------------------- MENU -----------------------------------------------------------------
@@ -56,8 +63,15 @@ public class GroupsFragment extends Fragment{
 
         //------------------ FIN MENU --------------------------------------------------------------
 
-        groupsList = root.findViewById(R.id.groups_list);
+        ListView groupsList = root.findViewById(R.id.groups_list);
         updateGroupsList();
+
+        //we set a custom adapter to the list
+        adapter = new GroupListAdapter(getActivity(), R.layout.adapter_groups_list, this.myGroupsList, this);
+        groupsList.setAdapter(adapter);
+
+        updateMyGroupsList();
+
 
         return root;
     }
@@ -75,11 +89,16 @@ public class GroupsFragment extends Fragment{
     public void updateGroupsList() {
         //we get the group list from the database, then we display it with an adapter
         databaseManager.open();
-        ArrayList<Group> groupArrayList = databaseManager.getGroups();
+        groups.clear();
+        groups.addAll(databaseManager.getGroups());
         databaseManager.close();
+    }
 
-        //we set a custom adapter to the list
-        adapter = new GroupListAdapter(getActivity(), R.layout.adapter_groups_list, groupArrayList, this);
-        groupsList.setAdapter(adapter);
+    public void updateMyGroupsList() {
+        this.myGroupsList.clear();
+        for(Group group : GroupsFragment.groups){
+            if(group.isMyGroup() == 1) this.myGroupsList.add(group);
+        }
+        this.adapter.notifyDataSetChanged();
     }
 }

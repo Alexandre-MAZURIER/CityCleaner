@@ -62,11 +62,17 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         databaseManager.open();
-                        databaseManager.removeGroup(groupId);
+
+                        //we remove the actual group from the user's groups list
+                        Group groupToUpdate = databaseManager.getGroup(groupId);
+                        groupToUpdate.setIsMyGroup(0);
+                        databaseManager.updateGroup(groupToUpdate);
+
                         databaseManager.close();
 
                         //we update the list
                         groupsFragment.updateGroupsList();
+                        groupsFragment.updateMyGroupsList();
 
                         Toast.makeText(getContext(), groupName + " supprimé", Toast.LENGTH_SHORT).show();
 

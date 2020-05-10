@@ -51,10 +51,13 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
         //we get the group list from the database, then we display it with an adapter
         databaseManager.open();
         ArrayList<Group> groupArrayList = databaseManager.getGroups();
+        databaseManager.close();
+
+
 
 
         ListView groupsList = view.findViewById(R.id.search_groups_list);
-        SearchGroupListAdapter adapter = new SearchGroupListAdapter(getActivity(), R.layout.adapter_search_groups_list, groupArrayList);
+        SearchGroupListAdapter adapter = new SearchGroupListAdapter(getActivity(), R.layout.adapter_search_groups_list, groupArrayList, parentFragment);
         groupsList.setAdapter(adapter);
 
         return builder.create();

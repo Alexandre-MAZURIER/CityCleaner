@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#efebf5"
+    android:background="#EAE6F4"
     android:elevation="4dp">
 
     <TextView
@@ -14,7 +14,7 @@
         android:id="@+id/searched_group_name"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingStart="8sp"
+        android:paddingStart="15sp"
         android:paddingEnd="8sp"
         android:ems="10"
         android:text="Nouveau Groupe"

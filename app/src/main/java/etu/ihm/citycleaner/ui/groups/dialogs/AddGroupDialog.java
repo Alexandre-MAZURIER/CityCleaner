@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
+import etu.ihm.citycleaner.ui.groups.Group;
 import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 
 public class AddGroupDialog extends AppCompatDialogFragment {
@@ -64,6 +65,7 @@ public class AddGroupDialog extends AppCompatDialogFragment {
 
                         //we update the list
                         parentFragment.updateGroupsList();
+                        parentFragment.updateMyGroupsList();
                     }
                 });
 

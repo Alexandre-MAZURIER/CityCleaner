@@ -17,10 +17,12 @@ public class GroupManager {
     private static final String TABLE_NAME = "groups";
     public static final String KEY_ID="id";
     public static final String KEY_NAME="name";
+    public static final String KEY_IS_MY_GROUP="isMyGroup";
     public static final String CREATE_TABLE_GROUP = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+
             " (" +
             " "+KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            " "+KEY_NAME+" TEXT NOT NULL" +
+            " "+KEY_NAME+" TEXT NOT NULL," +
+            " "+KEY_IS_MY_GROUP+" BOOLEAN NOT NULL CHECK ("+KEY_IS_MY_GROUP+" IN (0,1))" +
             ");";
     private MySQLite mySQLiteBase; // file manager for the SQLite base
     private SQLiteDatabase db;
@@ -42,6 +44,7 @@ public class GroupManager {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, groupName);
+        values.put(KEY_IS_MY_GROUP, 1);
 
         // insert() returns the new group id or -1 in case of error
         return this.db.insert(TABLE_NAME,null,values);
@@ -52,6 +55,7 @@ public class GroupManager {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, group.getName());
+        values.put(KEY_IS_MY_GROUP, group.isMyGroup());
 
         String where = KEY_ID+" = ?";
         String[] whereArgs = {group.getId() + ""};
@@ -75,11 +79,14 @@ public class GroupManager {
         if (c != null && c.moveToFirst()) {
             int groupId;
             String groupName;
+            int isMyGroup;
 
             groupId = c.getInt(c.getColumnIndex(KEY_ID));
             groupName = c.getString(c.getColumnIndex(KEY_NAME));
+            isMyGroup = c.getInt(c.getColumnIndex(KEY_IS_MY_GROUP));
+
             c.close();
-            return new Group(groupId, groupName, new ArrayList<Trash>());
+            return new Group(groupId, groupName, new ArrayList<Trash>(), isMyGroup);
         }
         return null;
     }
@@ -94,10 +101,14 @@ public class GroupManager {
 
                 int groupId;
                 String groupName;
+                int isMyGroup;
 
                 groupId = c.getInt(c.getColumnIndex(KEY_ID));
                 groupName = c.getString(c.getColumnIndex(KEY_NAME));
-                res.add(new Group(groupId, groupName, new ArrayList<Trash>()));
+                isMyGroup = c.getInt(c.getColumnIndex(KEY_IS_MY_GROUP));
+
+
+                res.add(new Group(groupId, groupName, new ArrayList<Trash>(), isMyGroup));
             }
             while (c.moveToNext());
         }
