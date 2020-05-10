@@ -53,7 +53,7 @@ public class TrashAdapter extends ArrayAdapter<Trash> {
                 break;
         }
         TextView textViewDate = convertView.findViewById(R.id.date);
-        textViewDate.setText(trash.getDate().toString());
+        textViewDate.setText(Util.formatDate(trash.getDate()));
 
         TextView textViewAdress = convertView.findViewById(R.id.adress);
         textViewAdress.setText(Util.getCompleteAddressString(this.getContext(), trash.getLatitude(), trash.getLongitude()));

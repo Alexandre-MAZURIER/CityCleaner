@@ -63,16 +63,7 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
             }
         });
 
-        Date trashDate = new Date();
-        try {
-            trashDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(trash.getDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
-
-
-        date.setText("Le " + simpleDateFormat.format(trashDate));
+        date.setText(Util.formatDate(trash.getDate()));
 
         int trashTypeNb = trash.getType();
         if(trash.getType() < 4) trashType.setText(types[trash.getType()]);

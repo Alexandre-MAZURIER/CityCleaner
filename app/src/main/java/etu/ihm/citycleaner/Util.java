@@ -4,6 +4,9 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,6 +31,17 @@ public class Util {
             e.printStackTrace();
         }
         return strAdd.replace(", ","\n");
+    }
+
+    static public String formatDate(String date) {
+        Date trashDate = new Date();
+        try {
+            trashDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
+        return "Le " + simpleDateFormat.format(trashDate);
     }
 
 }
