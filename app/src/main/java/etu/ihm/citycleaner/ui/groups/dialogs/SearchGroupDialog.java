@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -54,6 +57,25 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
 
         this.editText = view.findViewById(R.id.search_group_editText);
 
+        //we add a listener to change the list when typing
+        this.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String typed = s.toString();
+                updateGroupsToSearch(typed);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         ListView groupsList = view.findViewById(R.id.search_groups_list);
         adapter = new SearchGroupListAdapter(getActivity(),
                 R.layout.adapter_search_groups_list,
@@ -77,6 +99,23 @@ public class SearchGroupDialog extends AppCompatDialogFragment {
 
         for(Group group : this.groupArrayList) {
             if(group.isMyGroup() == 0) this.groupsToSearch.add(group);
+        }
+
+        this.adapter.notifyDataSetChanged();
+    }
+
+    public void updateGroupsToSearch(String typed) {
+        //we get the group list from the database, then we display it with an adapter
+        databaseManager.open();
+        this.groupArrayList = databaseManager.getGroups();
+        databaseManager.close();
+
+        this.groupsToSearch.clear();
+
+        for(Group group : this.groupArrayList) {
+            if(group.isMyGroup() == 0 && group.getName().contains(typed)) {
+                this.groupsToSearch.add(group);
+            }
         }
 
         this.adapter.notifyDataSetChanged();
