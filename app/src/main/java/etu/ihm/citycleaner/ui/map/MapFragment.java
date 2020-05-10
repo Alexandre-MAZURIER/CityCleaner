@@ -62,7 +62,6 @@ public class MapFragment extends Fragment {
         }
 
         trashManager = new TrashManager(this.getContext());
-        trashManager.open();
         //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
         //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), ""));
 
@@ -70,21 +69,29 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
             googleMap = mMap;
-
-            // For showing a move to my location button
             googleMap.setMyLocationEnabled(true);
-
             loadTrashesFromDb();
-
-            // For zooming automatically to the location of the marker
-
             }
         });
 
         return root;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                googleMap = mMap;
+                googleMap.setMyLocationEnabled(true);
+                loadTrashesFromDb();
+            }
+        });
+    }
+
     public void loadTrashesFromDb(){
+        trashManager.open();
         for(Trash t : trashManager.getTrashs()) {
             CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
             googleMap.setInfoWindowAdapter(customInfoWindow);
