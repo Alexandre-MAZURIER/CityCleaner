@@ -3,11 +3,13 @@
     android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#efebf5"
+    android:elevation="4dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="70sp"
+        android:layout_height="60sp"
         android:gravity="center_vertical"
         android:id="@+id/searched_group_name"
         android:textSize="18sp"
@@ -22,8 +24,8 @@
 
     <RelativeLayout
         android:id="@+id/layout_add_searched_group"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
         android:padding="10sp"
         android:layout_alignParentEnd="true"
         >

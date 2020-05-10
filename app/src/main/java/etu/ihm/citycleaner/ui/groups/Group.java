@@ -8,11 +8,13 @@ public class Group {
     private int id;
     private String name;
     private ArrayList<Trash> trashs;
+    private  boolean isMyGroup;
 
     public Group(int id, String name, ArrayList<Trash> thrashs) {
         this.id = id;
         this.name = name;
         this.trashs = thrashs;
+        this.isMyGroup = false;
     }
 
     public int getId() { return this.id; }
@@ -20,4 +22,8 @@ public class Group {
     public String getName() { return this.name; }
 
     public ArrayList<Trash> getThrashs() { return this.trashs; }
+
+    public void setIsMyGroup(boolean isMyGroup) { this.isMyGroup = isMyGroup; }
+
+    public boolean isMyGroup() { return this.isMyGroup; }
 }

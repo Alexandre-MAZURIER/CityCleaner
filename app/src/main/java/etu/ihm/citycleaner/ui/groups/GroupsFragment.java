@@ -20,6 +20,8 @@ import etu.ihm.citycleaner.ui.groups.dialogs.SearchGroupDialog;
 
 public class GroupsFragment extends Fragment{
 
+    public static ArrayList<Group> groups;
+
     private GroupManager databaseManager;
     private ListView groupsList;
     public static GroupListAdapter adapter;

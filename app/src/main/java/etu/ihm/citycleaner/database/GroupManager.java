@@ -72,28 +72,6 @@ public class GroupManager {
 
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+KEY_ID+"="+id, null);
 
-        return getGroupFromCursor(c);
-    }
-
-    public ArrayList<Group> getGroups() {
-        ArrayList<Group> res = new ArrayList<>();
-        // select all the groups of the table
-        Cursor c = this.db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
-
-        if (c.moveToFirst())
-        {
-            do {
-                res.add(getGroupFromCursor(c));
-            }
-            while (c.moveToNext());
-        }
-        // closing cursor
-        c.close();
-
-        return res;
-    }
-
-    private Group getGroupFromCursor(Cursor c) {
         if (c != null && c.moveToFirst()) {
             int groupId;
             String groupName;
@@ -104,5 +82,28 @@ public class GroupManager {
             return new Group(groupId, groupName, new ArrayList<Trash>());
         }
         return null;
+    }
+
+    public ArrayList<Group> getGroups() {
+        ArrayList<Group> res = new ArrayList<>();
+        // select all the groups of the table
+        Cursor c = this.db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
+
+        if (c.moveToFirst()) {
+            do {
+
+                int groupId;
+                String groupName;
+
+                groupId = c.getInt(c.getColumnIndex(KEY_ID));
+                groupName = c.getString(c.getColumnIndex(KEY_NAME));
+                res.add(new Group(groupId, groupName, new ArrayList<Trash>()));
+            }
+            while (c.moveToNext());
+        }
+        // closing cursor
+        c.close();
+
+        return res;
     }
 }
