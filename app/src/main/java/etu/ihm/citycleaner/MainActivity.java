@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -18,18 +14,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import etu.ihm.citycleaner.ui.filter.DialogFilter;
 import etu.ihm.citycleaner.ui.groups.Group;
 import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
-import etu.ihm.citycleaner.ui.filter.DialogFilter;
 
 
 public class MainActivity extends AppCompatActivity implements AddGroupDialog.DialogListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +44,7 @@ public class MainActivity extends AppCompatActivity implements AddGroupDialog.Di
         }
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder()
-                .build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder().build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -61,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements AddGroupDialog.Di
     public void addTrash(View view) {
         Intent intent = new Intent(MainActivity.this, CreateTrashActivity.class);
         startActivity(intent);
+    }
+
+    //supprime trash
+    public void removeTrash(View view){
+
     }
 
     public void filterTrash(View view) {

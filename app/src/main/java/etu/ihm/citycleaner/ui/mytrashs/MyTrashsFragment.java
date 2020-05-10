@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.database.TrashManager;
 
 public class MyTrashsFragment extends Fragment {
 
     private MyTrashsViewModel notificationsViewModel;
+    private TrashManager trashManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,8 +31,11 @@ public class MyTrashsFragment extends Fragment {
                 ViewModelProviders.of(this).get(MyTrashsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_my_trashs, container, false);
 
+        trashManager = new TrashManager(this.getContext());
+        trashManager.open();
+
         ListView listView = root.findViewById(R.id.contenu_my_trashs);
-        ArrayList<Trash> listTrash = myTrashTemporaire();
+        ArrayList<Trash> listTrash = trashManager.getTrashs();
         TrashAdapter trashAdapter = new TrashAdapter(getActivity(),R.layout.fragment_trash, listTrash);
         listView.setAdapter(trashAdapter);
 

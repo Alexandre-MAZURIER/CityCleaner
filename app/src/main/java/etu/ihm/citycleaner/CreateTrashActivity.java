@@ -1,13 +1,21 @@
 package etu.ihm.citycleaner;
 
 import android.Manifest;
-import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,23 +23,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import etu.ihm.citycleaner.database.TrashManager;
-import etu.ihm.citycleaner.ui.map.MapFragment;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class CreateTrashActivity extends FragmentActivity {
 
     private static final int CAMERA_REQUEST = 1888;
+    private static final String CHANNEL_ID = "okok";
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
@@ -117,13 +126,7 @@ public class CreateTrashActivity extends FragmentActivity {
                 databaseManager.open();
                 databaseManager.addTrash(trash);
                 databaseManager.close();
-
-                MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_map);
-
-                if (mapFragment != null) {
-                    mapFragment.loadTrashesFromDb();
-                }
-
+                sendNotification();
                 finish();
             }else{
                 Toast.makeText(getApplicationContext(), "Sélectionner un type de déchet", Toast.LENGTH_SHORT).show();
@@ -131,6 +134,44 @@ public class CreateTrashActivity extends FragmentActivity {
         }else{
             Toast.makeText(getApplicationContext(), "Sélectionner une taille de déchet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void sendNotification() {
+        NotificationManager mNotificationManager;
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(CreateTrashActivity.this, "notify_001");
+        Intent ii = new Intent(CreateTrashActivity.this.getApplicationContext(), CreateTrashActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(CreateTrashActivity.this, 0, ii, 0);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("Vous serez informé de sa prise en charge.");
+        bigText.setBigContentTitle("Votre déchet a bien été transmis !");
+        bigText.setSummaryText("Confirmation");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setContentTitle("Votre déchet a bien été transmis !");
+        mBuilder.setContentText("Vous serez informé de sa prise en charge.");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
+
+        mNotificationManager =
+                (NotificationManager) CreateTrashActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+// === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "123";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
     }
 
 
