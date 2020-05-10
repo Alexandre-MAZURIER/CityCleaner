@@ -18,7 +18,7 @@ public class GroupManager {
     public static final String KEY_ID="id";
     public static final String KEY_NAME="name";
     public static final String KEY_IS_MY_GROUP="isMyGroup";
-    public static final String CREATE_TABLE_GROUP = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+
+    public static final String CREATE_TABLE_GROUP = "CREATE TABLE "+TABLE_NAME+
             " (" +
             " "+KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             " "+KEY_NAME+" TEXT NOT NULL," +
