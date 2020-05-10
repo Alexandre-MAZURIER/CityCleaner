@@ -109,7 +109,7 @@ public class TrashManager {
             t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
             t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
             t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
-            //t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
+            t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
             c.close();
         }
 
@@ -135,7 +135,7 @@ public class TrashManager {
                 t.setLongitude(c.getDouble(c.getColumnIndex(KEY_LONGITUDE)));
                 t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
                 t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
-                //t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
+                t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
                 trashList.add(t);
             }
             while (c.moveToNext());

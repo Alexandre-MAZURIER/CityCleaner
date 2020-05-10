@@ -1,7 +1,6 @@
 package etu.ihm.citycleaner;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,13 +19,11 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import etu.ihm.citycleaner.database.TrashManager;
-import etu.ihm.citycleaner.ui.map.MapFragment;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class CreateTrashActivity extends FragmentActivity {
@@ -117,13 +114,6 @@ public class CreateTrashActivity extends FragmentActivity {
                 databaseManager.open();
                 databaseManager.addTrash(trash);
                 databaseManager.close();
-
-                MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_map);
-
-                if (mapFragment != null) {
-                    mapFragment.loadTrashesFromDb();
-                }
-
                 finish();
             }else{
                 Toast.makeText(getApplicationContext(), "Sélectionner un type de déchet", Toast.LENGTH_SHORT).show();

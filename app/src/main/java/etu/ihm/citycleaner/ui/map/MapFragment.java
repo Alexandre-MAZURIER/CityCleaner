@@ -12,28 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Date;
 
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.TrashManager;
@@ -83,8 +76,6 @@ public class MapFragment extends Fragment {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-                googleMap.setMyLocationEnabled(true);
                 loadTrashesFromDb();
             }
         });
@@ -92,6 +83,7 @@ public class MapFragment extends Fragment {
 
     public void loadTrashesFromDb(){
         trashManager.open();
+        LatLng lastTrashPos = null;
         for(Trash t : trashManager.getTrashs()) {
             CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
             googleMap.setInfoWindowAdapter(customInfoWindow);
@@ -99,16 +91,24 @@ public class MapFragment extends Fragment {
             LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
             Marker m = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
-                    .title("Polytech Nice Sophia")
-                    .snippet("La petite Jaja")
                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
                     ));
+
+            /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+
+                    return true;
+                }
+            });*/
+
             m.setTag(t);
             m.showInfoWindow();
-
-
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            lastTrashPos = latLng;
+        }
+        if(lastTrashPos != null) {
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(lastTrashPos).zoom(15).build();
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
     }
 
