@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import etu.ihm.citycleaner.ui.groups.Group;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class TrashManager {
@@ -63,7 +64,7 @@ public class TrashManager {
         values.put(KEY_DATE, trash.getDate());
         values.put(KEY_IMAGE_URL, trash.getImage());
         values.put(KEY_NB_LIKE, trash.getNbLike());
-        values.put(KEY_GROUP_ID, trash.getGroupId());
+        values.put(KEY_GROUP_ID, Group.actualGroupId);
 
         // insert() retourne l'id du nouvel enregistrement inséré, ou -1 en cas d'erreur
         return db.insert(TABLE_NAME,null,values);

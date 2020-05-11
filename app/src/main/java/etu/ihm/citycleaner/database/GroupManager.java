@@ -14,6 +14,8 @@ import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class GroupManager {
 
+    private Context context;
+
     private static final String TABLE_NAME = "groups";
     public static final String KEY_ID="id";
     public static final String KEY_NAME="name";
@@ -28,6 +30,7 @@ public class GroupManager {
     private SQLiteDatabase db;
 
     public GroupManager(Context context) {
+        this.context = context;
         this.mySQLiteBase = MySQLite.getInstance(context);
     }
 
@@ -86,7 +89,16 @@ public class GroupManager {
             isMyGroup = c.getInt(c.getColumnIndex(KEY_IS_MY_GROUP));
 
             c.close();
-            return new Group(groupId, groupName, new ArrayList<Trash>(), isMyGroup);
+
+            //we add the trashes to the group if they exist
+            ArrayList<Trash> trashes = this.getTrashesList();
+            ArrayList<Trash> myTrashes = new ArrayList<>();
+
+            for(Trash trash : trashes) {
+                if(trash.getGroupId() == groupId) myTrashes.add(trash);
+            }
+
+            return new Group(groupId, groupName, myTrashes, isMyGroup);
         }
         return null;
     }
@@ -107,13 +119,28 @@ public class GroupManager {
                 groupName = c.getString(c.getColumnIndex(KEY_NAME));
                 isMyGroup = c.getInt(c.getColumnIndex(KEY_IS_MY_GROUP));
 
+                //we add the trashes to the group if they exist
+                ArrayList<Trash> trashes = this.getTrashesList();
+                ArrayList<Trash> myTrashes = new ArrayList<>();
 
-                res.add(new Group(groupId, groupName, new ArrayList<Trash>(), isMyGroup));
+                for(Trash trash : trashes) {
+                    if(trash.getGroupId() == groupId) myTrashes.add(trash);
+                }
+
+                res.add(new Group(groupId, groupName, myTrashes, isMyGroup));
             }
             while (c.moveToNext());
         }
         // closing cursor
         c.close();
+
+        return res;
+    }
+
+    private ArrayList<Trash> getTrashesList() {
+        TrashManager trashManager = new TrashManager(this.context);
+        trashManager.open();
+        ArrayList<Trash> res = trashManager.getTrashs();
 
         return res;
     }
