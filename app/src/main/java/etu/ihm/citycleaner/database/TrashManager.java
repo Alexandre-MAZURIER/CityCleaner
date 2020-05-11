@@ -20,6 +20,7 @@ public class TrashManager {
     public static final String KEY_DATE = "date";
     public static final String KEY_IMAGE_URL = "image";
     public static final String KEY_NB_LIKE = "nbLike";
+    public static final String KEY_GROUP_ID = "groupId";
 
     public static final String CREATE_TABLE_TRASH = "CREATE TABLE " + TABLE_NAME +
             " (" +
@@ -30,7 +31,8 @@ public class TrashManager {
             " "+KEY_LONGITUDE+" REAL," +
             " "+KEY_DATE+" TEXT," +
             " "+KEY_IMAGE_URL+" TEXT," +
-            " "+KEY_NB_LIKE+" INTEGER" +
+            " "+KEY_NB_LIKE+" INTEGER," +
+            " "+KEY_GROUP_ID+" INTEGER" +
             ");";
     private MySQLite maBaseSQLite; // notre gestionnaire du fichier SQLite
     private SQLiteDatabase db;
@@ -61,6 +63,7 @@ public class TrashManager {
         values.put(KEY_DATE, trash.getDate());
         values.put(KEY_IMAGE_URL, trash.getImage());
         values.put(KEY_NB_LIKE, trash.getNbLike());
+        values.put(KEY_GROUP_ID, trash.getGroupId());
 
         // insert() retourne l'id du nouvel enregistrement inséré, ou -1 en cas d'erreur
         return db.insert(TABLE_NAME,null,values);
@@ -78,6 +81,7 @@ public class TrashManager {
         values.put(KEY_DATE, trash.getDate().toString());
         values.put(KEY_IMAGE_URL, trash.getImage());
         values.put(KEY_NB_LIKE, trash.getNbLike());
+        values.put(KEY_GROUP_ID, trash.getGroupId());
 
         String where = KEY_ID+" = ?";
         String[] whereArgs = {trash.getId()+""};
@@ -110,6 +114,7 @@ public class TrashManager {
             t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
             t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
             t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
+            t.setGroupId(c.getInt(c.getColumnIndex(KEY_GROUP_ID)));
             c.close();
         }
 
@@ -136,6 +141,7 @@ public class TrashManager {
                 t.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
                 t.setImage(c.getString(c.getColumnIndex(KEY_IMAGE_URL)));
                 t.setNbLike(c.getInt(c.getColumnIndex(KEY_NB_LIKE)));
+                t.setGroupId(c.getInt(c.getColumnIndex(KEY_GROUP_ID)));
                 trashList.add(t);
             }
             while (c.moveToNext());

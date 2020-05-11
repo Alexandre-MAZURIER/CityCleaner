@@ -5,13 +5,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,7 +20,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Activity;
@@ -121,7 +116,7 @@ public class CreateTrashActivity extends FragmentActivity {
 
         if (this.garbageSize != -1) {
             if (this.garbageType != -1) {
-                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), "https://upload.wikimedia.org/wikipedia/commons/3/33/Pedro_playing_for_Chelsea.jpg");
+                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), "https://upload.wikimedia.org/wikipedia/commons/3/33/Pedro_playing_for_Chelsea.jpg", -1);
 
                 databaseManager.open();
                 databaseManager.addTrash(trash);
@@ -141,7 +136,7 @@ public class CreateTrashActivity extends FragmentActivity {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(CreateTrashActivity.this, "notify_001");
-        Intent ii = new Intent(CreateTrashActivity.this.getApplicationContext(), CreateTrashActivity.class);
+        Intent ii = new Intent(CreateTrashActivity.this.getApplicationContext(), MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(CreateTrashActivity.this, 0, ii, 0);
 
         NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();

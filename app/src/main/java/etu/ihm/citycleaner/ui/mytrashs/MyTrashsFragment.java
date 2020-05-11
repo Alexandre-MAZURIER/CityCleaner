@@ -42,17 +42,4 @@ public class MyTrashsFragment extends Fragment {
 
         return root;
     }
-
-    //temporaire tant qu'on a pas de BDD ou autre
-    public ArrayList<Trash> myTrashTemporaire(){
-        ArrayList<Trash> listTrash = new ArrayList<>();
-        Trash trash1 = new Trash(0,0,0,0,0,"01/01/01", "oui");
-        Trash trash2 = new Trash(1,1,0,0,0,"01/01/01", "oui");
-        Trash trash3 = new Trash(2,2,0,0,0,"01/01/01", "oui");
-        listTrash.add(trash1);
-        listTrash.add(trash2);
-        listTrash.add(trash3);
-
-        return listTrash;
-    }
 }
