@@ -5,31 +5,48 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
 
 import etu.ihm.citycleaner.database.TrashManager;
+import etu.ihm.citycleaner.ui.map.MapFragment;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class CreateTrashActivity extends FragmentActivity {
@@ -44,8 +61,54 @@ public class CreateTrashActivity extends FragmentActivity {
     double latitude;
     double longitude;
 
+    Bitmap photo;
+
     int garbageSize = -1;
     int garbageType = -1;
+
+    private TrashManager databaseManager = new TrashManager(this);
+    private boolean imageSet = false;
+    private String currentPhotoPath;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_trash);
+
+        this.imageView = (ImageView) this.findViewById(R.id.imageView); // Where a miniature will be displayed
+
+        Button photoButton = (Button) this.findViewById(R.id.imageButton);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                } else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
+
+
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this.locationListener);
+
+
+        Button closeButton = (Button) findViewById(R.id.cancel_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
 
     private final LocationListener locationListener = new LocationListener() {
 
@@ -70,59 +133,31 @@ public class CreateTrashActivity extends FragmentActivity {
         }
     };
 
-    private TrashManager databaseManager = new TrashManager(this);
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_trash);
-
-
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        this.imageView = (ImageView) this.findViewById(R.id.imageView); // Where a miniature will be displayed
-
-        Button photoButton = (Button) this.findViewById(R.id.imageButton);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                } else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
-            }
-        });
-
-
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this.locationListener);
-
-
-        Button closeButton = (Button) findViewById(R.id.cancel_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
 
     public void onSendGarbage(View v) {
         Log.d("CreateActivity", "onSendGarbage: dzdzdzzdz");
 
         if (this.garbageSize != -1) {
             if (this.garbageType != -1) {
-                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), "https://upload.wikimedia.org/wikipedia/commons/3/33/Pedro_playing_for_Chelsea.jpg", -1);
+                if(imageSet) {
+
+                String photoId = currentPhotoPath;
+
+                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), photoId, -1);
 
                 databaseManager.open();
                 databaseManager.addTrash(trash);
                 databaseManager.close();
+
+                openConfirmationDialog();
+
                 sendNotification();
-                finish();
+
+//                finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Veuillez prendre une photo du déchet", Toast.LENGTH_SHORT).show();
+
+                }
             }else{
                 Toast.makeText(getApplicationContext(), "Sélectionner un type de déchet", Toast.LENGTH_SHORT).show();
             }
@@ -233,13 +268,81 @@ public class CreateTrashActivity extends FragmentActivity {
     }
 
 
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+//        Log.e("d", "setPic: "+bitmap.toString());
+//        imageView.setImageBitmap(bitmap);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
+            this.photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+
+            imageView.setImageBitmap(this.photo);
+            this.imageSet = true;
+
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ignored) {
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "etu.ihm.citycleaner.fileprovider",
+                        photoFile);
+                Log.e("ee", photoURI.toString());
+                data.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            }
+
+            setPic();
         }
     }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        Log.e("Zoucandre", currentPhotoPath);
+        return image;
+    }
+
+    private void openConfirmationDialog(){
+        TrashCreatedDialog searchGroupDialog = new TrashCreatedDialog();
+        searchGroupDialog.show(getSupportFragmentManager(), "confirm");
+    }
+
+
 
 }
