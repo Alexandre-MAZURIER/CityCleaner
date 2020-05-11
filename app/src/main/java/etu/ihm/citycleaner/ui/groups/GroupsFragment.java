@@ -1,16 +1,21 @@
 package etu.ihm.citycleaner.ui.groups;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.maps.model.TileOverlay;
 
 import java.util.ArrayList;
 
@@ -63,7 +68,7 @@ public class GroupsFragment extends Fragment{
 
         //------------------ FIN MENU --------------------------------------------------------------
 
-        ListView groupsList = root.findViewById(R.id.groups_list);
+        final ListView groupsList = root.findViewById(R.id.groups_list);
         updateGroupsList();
 
         //we set a custom adapter to the list
@@ -71,7 +76,6 @@ public class GroupsFragment extends Fragment{
         groupsList.setAdapter(adapter);
 
         updateMyGroupsList();
-
 
         return root;
     }
