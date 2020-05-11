@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -77,7 +78,7 @@ public class DialogFilter extends AppCompatDialogFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(green.isChecked()) {
                     editorGreen.putBoolean("keyGreen", true);
-                    editorGreen.apply();
+                    //editorGreen.apply();
                     green.setChecked(true);
                 }
                 else {
@@ -90,7 +91,7 @@ public class DialogFilter extends AppCompatDialogFragment {
         builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                //editorGreen.apply();
+                editorGreen.apply();
 
             }
         });

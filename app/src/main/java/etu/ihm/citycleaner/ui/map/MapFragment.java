@@ -1,6 +1,7 @@
 package etu.ihm.citycleaner.ui.map;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -44,6 +45,8 @@ public class MapFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
         mMapView = root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
