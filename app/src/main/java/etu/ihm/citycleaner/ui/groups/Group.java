@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class Group {
+
+    public static int userId = 150;
+    public static int actualGroupId = -1;
+
     private int id;
     private String name;
     private ArrayList<Trash> trashs;

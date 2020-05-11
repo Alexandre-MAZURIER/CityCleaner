@@ -3,6 +3,7 @@ package etu.ihm.citycleaner.ui.groups;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
@@ -38,7 +40,7 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
 
     @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         final int groupId = getItem(position).getId();
         final String groupName = getItem(position).getName();
         String trashNumber = Integer.toString(getItem(position).getThrashs().size());
@@ -51,6 +53,26 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
         Button deleteGroup = convertView.findViewById(R.id.delete_group_button);
 
         groupNameView.setText(groupName);
+        final View finalConvertView = convertView;
+        final View finalConvertView1 = convertView;
+        groupNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Group group = getItem(position);
+                Group.actualGroupId = group.getId();
+                Toast.makeText(getContext(), group.getName() + " défini comme groupe actuel", Toast.LENGTH_LONG).show();
+                finalConvertView.setBackgroundColor(0xFFEAE6F4);
+
+                GroupListAdapter adapter = groupsFragment.getGroupListAdapter();
+
+                for(int i=0; i<adapter.getCount(); i++) {
+                    if (Objects.requireNonNull(adapter.getItem(i)).getId() != Group.actualGroupId) {
+                        parent.getChildAt(i).setBackgroundColor(0xFFF0F0F0);
+                    }
+                }
+            }
+        });
+
         trashNumberView.setText(trashNumber);
         deleteGroup.setOnClickListener(new View.OnClickListener() {
             @Override
