@@ -76,38 +76,7 @@
                 android:text=" Autres" />
         </RadioGroup>
 
-        <LinearLayout
-            android:id="@+id/view4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/radioType"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent">
 
-            <Button
-                android:id="@+id/cancel_but"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Annuler"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintEnd_toStartOf="@+id/validate_button"
-                tools:ignore="MissingConstraints" />
-
-            <Button
-                android:id="@+id/validate_button"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Valider"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintTop_toTopOf="@+id/cancel_but"
-                app:layout_constraintStart_toStartOf="@+id/cancel_but"
-                app:layout_constraintEnd_toStartOf="@+id/send_button"
-                />
-
-
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

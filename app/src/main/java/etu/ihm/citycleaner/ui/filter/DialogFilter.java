@@ -31,67 +31,46 @@ public class DialogFilter extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_filter_trash, null);
 
-        Button cancel = view.findViewById(R.id.cancel_but);
-        Button validate = view.findViewById(R.id.validate_button);
 
         SharedPreferences share = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
         final CheckBox green = view.findViewById(R.id.green);
         final SharedPreferences.Editor editorGreen = share.edit();
 
-        CheckBox plastic = view.findViewById(R.id.plastic);
-        SharedPreferences.Editor editorPlastic = share.edit();
+        final CheckBox plastic = view.findViewById(R.id.plastic);
+        final SharedPreferences.Editor editorPlastic = share.edit();
 
-        CheckBox furniture = view.findViewById(R.id.furniture);
-        SharedPreferences.Editor editorFurnitur = share.edit();
+        final CheckBox furniture = view.findViewById(R.id.furniture);
+        final SharedPreferences.Editor editorFurniture = share.edit();
 
-        CheckBox other = view.findViewById(R.id.other);
-        SharedPreferences.Editor editorOther = share.edit();
+        final CheckBox other = view.findViewById(R.id.other);
+        final SharedPreferences.Editor editorOther = share.edit();
 
 
 
         builder.setView(view);
 
-//        if(green.isChecked()) {
-//            green.setChecked(true);
-//            editorGreen.putBoolean("keyGreen", true);
-//        }
+        if(share.getBoolean("keyGreen", true))
+            green.setChecked(true);
+        if(share.getBoolean("keyPlastic", true))
+            plastic.setChecked(true);
+        if(share.getBoolean("keyFurniture", true))
+            furniture.setChecked(true);
+        if(share.getBoolean("keyOther", true))
+            other.setChecked(true);
 
-
-
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dismiss();
-//            }
-//        });
-//        validate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editorGreen.commit();
-//            }
-//        });
-
-
-        green.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(green.isChecked()) {
-                    editorGreen.putBoolean("keyGreen", true);
-                    //editorGreen.apply();
-                    green.setChecked(true);
-                }
-                else {
-                    editorGreen.putBoolean("keyGreen", false);
-                    green.setChecked(false);
-                }
-
-            }
-        });
         builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
+                editorGreen.putBoolean("keyGreen", green.isChecked());
+                editorPlastic.putBoolean("keyPlastic", plastic.isChecked());
+                editorFurniture.putBoolean("keyFurniture", furniture.isChecked());
+                editorOther.putBoolean("keyOther", other.isChecked());
+
                 editorGreen.apply();
+                editorPlastic.apply();
+                editorFurniture.apply();
+                editorOther.apply();
 
             }
         });

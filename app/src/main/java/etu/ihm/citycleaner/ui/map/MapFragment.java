@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import etu.ihm.citycleaner.R;
@@ -46,7 +47,6 @@ public class MapFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
         mMapView = root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -87,26 +87,39 @@ public class MapFragment extends Fragment {
         });
     }
 
-    public void loadTrashesFromDb(){
+    public void loadTrashesFromDb() {
+        ArrayList<Trash> res = new ArrayList<>();
         trashManager.open();
         LatLng lastTrashPos = null;
-        for(Trash t : trashManager.getTrashs()) {
-            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
-            googleMap.setInfoWindowAdapter(customInfoWindow);
-            LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
-            Marker m = googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
-                    ));
-            m.setTag(t);
-            m.showInfoWindow();
-            lastTrashPos = latLng;
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
+
+        if(sharedPref.getBoolean("keyGreen", true))
+            res.addAll(trashManager.getTrashesByType(0));
+        if(sharedPref.getBoolean("keyPlastic", true))
+            res.addAll(trashManager.getTrashesByType(1));
+        if(sharedPref.getBoolean("keyFurniture", true))
+            res.addAll(trashManager.getTrashesByType(2));
+        if(sharedPref.getBoolean("keyOther", true))
+            res.addAll(trashManager.getTrashesByType(3));
+
+            for (Trash t : res) {
+                CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
+                googleMap.setInfoWindowAdapter(customInfoWindow);
+                LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
+                Marker m = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
+                        ));
+                m.setTag(t);
+                m.showInfoWindow();
+                lastTrashPos = latLng;
+            }
+            if (lastTrashPos != null) {
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(lastTrashPos).zoom(15).build();
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
         }
-        if(lastTrashPos != null) {
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(lastTrashPos).zoom(15).build();
-            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-    }
+
 
     private Bitmap getMarkerBitmapFromView(int n) {
         View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
