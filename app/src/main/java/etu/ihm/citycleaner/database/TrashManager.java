@@ -149,4 +149,28 @@ public class TrashManager {
         c.close(); // fermeture du curseur
         return trashList;
     }
+
+    public ArrayList<Trash> getTrashesByCurrentGroup() {
+        ArrayList<Trash> trashes = this.getTrashs();
+
+        ArrayList<Trash> res = new ArrayList<>();
+
+        for(Trash trash : trashes) {
+            if(trash.getGroupId() == Group.actualGroupId) res.add(trash);
+        }
+
+        return res;
+    }
+
+    public ArrayList<Trash> getTrashesByType(int type) {
+        ArrayList<Trash> trashes = this.getTrashs();
+
+        ArrayList<Trash> res = new ArrayList<>();
+
+        for(Trash trash : trashes) {
+            if(trash.getType() == type) res.add(trash);
+        }
+
+        return res;
+    }
 }
