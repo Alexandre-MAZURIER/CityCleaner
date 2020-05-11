@@ -67,7 +67,6 @@ public class CreateTrashActivity extends FragmentActivity {
     int garbageType = -1;
 
     private TrashManager databaseManager = new TrashManager(this);
-    private boolean imageSet = false;
     private String currentPhotoPath;
 
 
@@ -85,8 +84,26 @@ public class CreateTrashActivity extends FragmentActivity {
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
                 } else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    // Ensure that there's a camera activity to handle the intent
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        // Create the File where the photo should go
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            Uri photoURI = FileProvider.getUriForFile(CreateTrashActivity.this,
+                                    "etu.ihm.citycleaner.fileprovider",
+                                    photoFile);
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                            startActivityForResult(takePictureIntent, 1);
+                        }
+                    }
                 }
             }
         });
@@ -139,8 +156,6 @@ public class CreateTrashActivity extends FragmentActivity {
 
         if (this.garbageSize != -1) {
             if (this.garbageType != -1) {
-                if(imageSet) {
-
                 String photoId = currentPhotoPath;
 
                 Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), photoId, -1);
@@ -153,11 +168,7 @@ public class CreateTrashActivity extends FragmentActivity {
 
                 sendNotification();
 
-//                finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Veuillez prendre une photo du déchet", Toast.LENGTH_SHORT).show();
-
-                }
+                //finish();
             }else{
                 Toast.makeText(getApplicationContext(), "Sélectionner un type de déchet", Toast.LENGTH_SHORT).show();
             }
@@ -300,7 +311,6 @@ public class CreateTrashActivity extends FragmentActivity {
             this.photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
 
             imageView.setImageBitmap(this.photo);
-            this.imageSet = true;
 
             File photoFile = null;
             try {

@@ -28,6 +28,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import java.util.Date;
+
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.TrashManager;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
@@ -55,8 +57,9 @@ public class MapFragment extends Fragment {
         }
 
         trashManager = new TrashManager(this.getContext());
+        trashManager.open();
         //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
-        //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), ""));
+        trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), "", -1));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -87,21 +90,11 @@ public class MapFragment extends Fragment {
         for(Trash t : trashManager.getTrashs()) {
             CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
             googleMap.setInfoWindowAdapter(customInfoWindow);
-            Log.e("TrashType", t.getType() + "");
             LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
             Marker m = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
                     ));
-
-            /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-
-                    return true;
-                }
-            });*/
-
             m.setTag(t);
             m.showInfoWindow();
             lastTrashPos = latLng;
