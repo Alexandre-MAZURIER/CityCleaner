@@ -51,7 +51,7 @@ import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 public class CreateTrashActivity extends FragmentActivity {
 
-    private static final int CAMERA_REQUEST = 1888;
+    static final int REQUEST_TAKE_PHOTO = 1;
     private static final String CHANNEL_ID = "okok";
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -101,7 +101,7 @@ public class CreateTrashActivity extends FragmentActivity {
                                     "etu.ihm.citycleaner.fileprovider",
                                     photoFile);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                            startActivityForResult(takePictureIntent, 1);
+                            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
                         }
                     }
                 }
@@ -264,19 +264,19 @@ public class CreateTrashActivity extends FragmentActivity {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            } else {
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
+//                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+//            } else {
+//                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//    }
 
 
     private void setPic() {
@@ -301,28 +301,29 @@ public class CreateTrashActivity extends FragmentActivity {
 
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
 //        Log.e("d", "setPic: "+bitmap.toString());
-//        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(bitmap);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            this.photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+//            this.photo = (Bitmap) data.getExtras().get("data");
 
-            imageView.setImageBitmap(this.photo);
+//            imageView.setImageBitmap(this.photo);
 
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ignored) {
+                Log.e("RienQuiVa", "Erreur creation fichier");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "etu.ihm.citycleaner.fileprovider",
                         photoFile);
-                Log.e("ee", photoURI.toString());
+//                Log.e("ee", photoURI.toString());
                 data.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             }
 
@@ -344,7 +345,7 @@ public class CreateTrashActivity extends FragmentActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
-        Log.e("Zoucandre", currentPhotoPath);
+//        Log.e("FilePath", currentPhotoPath);
         return image;
     }
 
