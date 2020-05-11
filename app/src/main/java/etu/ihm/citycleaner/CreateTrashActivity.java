@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
@@ -104,6 +105,7 @@ public class CreateTrashActivity extends FragmentActivity {
                             startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
                         }
                     }
+                    setPic();
                 }
             }
         });
@@ -157,6 +159,20 @@ public class CreateTrashActivity extends FragmentActivity {
         if (this.garbageSize != -1) {
             if (this.garbageType != -1) {
                 String photoId = currentPhotoPath;
+                LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
 
                 Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), photoId, -1);
 
@@ -308,25 +324,6 @@ public class CreateTrashActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            this.photo = (Bitmap) data.getExtras().get("data");
-
-//            imageView.setImageBitmap(this.photo);
-
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ignored) {
-                Log.e("RienQuiVa", "Erreur creation fichier");
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "etu.ihm.citycleaner.fileprovider",
-                        photoFile);
-//                Log.e("ee", photoURI.toString());
-                data.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            }
-
             setPic();
         }
     }

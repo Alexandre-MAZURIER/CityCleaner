@@ -59,7 +59,7 @@ public class MapFragment extends Fragment {
         trashManager = new TrashManager(this.getContext());
         trashManager.open();
         //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
-        trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), "", -1));
+        //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), "", -1));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override

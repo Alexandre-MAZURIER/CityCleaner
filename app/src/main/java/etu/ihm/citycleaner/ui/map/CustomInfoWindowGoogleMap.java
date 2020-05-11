@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
@@ -82,6 +83,25 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
 
         adress.setText(Util.getCompleteAddressString(context, trash.getLatitude(), trash.getLongitude()));
         likes.setText(trash.getNbLike() + "");
+
+        ImageView imageView = view.findViewById(R.id.trashImg);
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        // Determine how much to scale down the image
+        int scaleFactor = 1;
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(trash.getImage(), bmOptions);
+        imageView.setImageBitmap(bitmap);
+
+
         return view;
     }
 
