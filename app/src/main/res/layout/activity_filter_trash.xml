@@ -30,8 +30,8 @@
 
         <RadioGroup
             android:id="@+id/radioType"
-            android:layout_width="347dp"
-            android:layout_height="159dp"
+            android:layout_width="340dp"
+            android:layout_height="210dp"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,39 +72,23 @@
                 android:drawableStart="@drawable/ic_other"
                 android:paddingStart="10dp"
                 android:text=" Autres" />
+
+            <CheckBox
+                android:id="@+id/group"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp" />
+
         </RadioGroup>
-
-
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="347dp"
-            android:layout_height="194dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioType"
-            app:layout_constraintVertical_bias="0.95">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ListView
-                    android:id="@+id/listGroups"
-                    android:layout_width="match_parent"
-                    android:layout_height="199dp" />
-            </LinearLayout>
-        </ScrollView>
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Groupes"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintBottom_toTopOf="@+id/checkBox"
             app:layout_constraintStart_toStartOf="parent" />
 
 
