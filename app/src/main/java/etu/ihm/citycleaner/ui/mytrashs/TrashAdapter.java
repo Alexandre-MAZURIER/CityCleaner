@@ -30,40 +30,41 @@ public class TrashAdapter extends ArrayAdapter<Trash> {
         Trash trash = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_trash, null);
+            convertView = LayoutInflater.from(getContext()).inflate(mResource, null);
         }
-        TextView textViewType = convertView.findViewById(R.id.type);
         ImageView iconTrash = convertView.findViewById(R.id.icon);
-        switch (trash.getType()){
-            case 0:
-                textViewType.setText("Déchets verts");
-                iconTrash.setImageResource(R.drawable.ic_green);
-                break;
-            case 1:
-                textViewType.setText("Déchets plastiques");
-                iconTrash.setImageResource(R.drawable.ic_plastic);
-                break;
-            case 2:
-                textViewType.setText("Ecombrants");
-                iconTrash.setImageResource(R.drawable.ic_furniture);
-                break;
-            case 3:
-                textViewType.setText("Autres");
-                iconTrash.setImageResource(R.drawable.ic_other);
-                break;
-        }
         TextView textViewDate = convertView.findViewById(R.id.date);
         textViewDate.setText(trash.getDate());
-
         TextView textViewAdress = convertView.findViewById(R.id.adress);
         textViewAdress.setText(Util.getCompleteAddressString(this.getContext(), trash.getLatitude(), trash.getLongitude()));
-
         TextView textViewLike = convertView.findViewById(R.id.nbLike);
         textViewLike.setText(String.valueOf(trash.getNbLike()));
+        if(mResource != R.layout.fragment_simplified_trash) {
+            TextView textViewType = convertView.findViewById(R.id.type);
 
-        //changer pour mettre image de trash
-        ImageView imageTrash = convertView.findViewById(R.id.image);
-        imageTrash.setImageResource(R.drawable.ic_large_bin);
+            switch (trash.getType()) {
+                case 0:
+                    textViewType.setText("Déchets verts");
+                    iconTrash.setImageResource(R.drawable.ic_green);
+                    break;
+                case 1:
+                    textViewType.setText("Déchets plastiques");
+                    iconTrash.setImageResource(R.drawable.ic_plastic);
+                    break;
+                case 2:
+                    textViewType.setText("Ecombrants");
+                    iconTrash.setImageResource(R.drawable.ic_furniture);
+                    break;
+                case 3:
+                    textViewType.setText("Autres");
+                    iconTrash.setImageResource(R.drawable.ic_other);
+                    break;
+            }
+
+            //changer pour mettre image de trash
+            ImageView imageTrash = convertView.findViewById(R.id.image);
+            imageTrash.setImageResource(R.drawable.ic_large_bin);
+        }
 
         return convertView;
     }
