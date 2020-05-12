@@ -174,7 +174,7 @@ public class CreateTrashActivity extends FragmentActivity {
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
 
-                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), photoId, -1);
+                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Util.getCurrentDate(), photoId, -1);
 
                 databaseManager.open();
                 databaseManager.addTrash(trash);
