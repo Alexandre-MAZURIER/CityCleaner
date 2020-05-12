@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view3"
-        android:layout_width="415dp"
-        android:layout_height="472dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorBlancTifa"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,6 @@
             android:id="@+id/garbage_type_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
             android:text="Filtrer les déchets"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -30,8 +29,8 @@
 
         <RadioGroup
             android:id="@+id/radioType"
-            android:layout_width="347dp"
-            android:layout_height="159dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
