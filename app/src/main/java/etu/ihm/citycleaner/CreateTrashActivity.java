@@ -207,7 +207,7 @@ public class CreateTrashActivity extends FragmentActivity {
         bigText.setSummaryText("Confirmation");
 
         mBuilder.setContentIntent(pendingIntent);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("Votre déchet a bien été transmis !");
         mBuilder.setContentText("Vous serez informé de sa prise en charge.");
         mBuilder.setPriority(Notification.PRIORITY_MAX);
@@ -352,5 +352,7 @@ public class CreateTrashActivity extends FragmentActivity {
     }
 
 
-
+    public void finish(View view) {
+        finish();
+    }
 }
