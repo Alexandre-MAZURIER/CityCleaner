@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -23,7 +22,6 @@ import etu.ihm.citycleaner.ui.groups.Group;
 
 public class DialogFilter extends AppCompatDialogFragment {
 
-    private ListView list;
     private ArrayList<Group> tabMyGroups;
 
     @SuppressLint("ResourceType")
@@ -36,12 +34,11 @@ public class DialogFilter extends AppCompatDialogFragment {
         groupManager.open();
         tabMyGroups = groupManager.getMyGroups();
         View view = inflater.inflate(R.layout.activity_filter_trash, null);
-        list = view.findViewById(R.id.listGroups);
-        if(tabMyGroups != null){
-            FilterGroupAdapter filterGroupAdapter = new FilterGroupAdapter(getActivity(),R.layout.fragment_trash, tabMyGroups);
-            list.setAdapter(filterGroupAdapter);
+        if(tabMyGroups != null && tabMyGroups.size() != 0 ){
+            CheckBox checkBox = view.findViewById(R.id.groupCheckBox);
+            checkBox.setVisibility(0);
+            checkBox.setText(tabMyGroups.get(0).getName());
         }
-
         SharedPreferences share = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
         final CheckBox green = view.findViewById(R.id.green);
@@ -55,8 +52,6 @@ public class DialogFilter extends AppCompatDialogFragment {
 
         final CheckBox other = view.findViewById(R.id.other);
         final SharedPreferences.Editor editorOther = share.edit();
-
-
 
         builder.setView(view);
 
@@ -81,7 +76,6 @@ public class DialogFilter extends AppCompatDialogFragment {
                 editorPlastic.apply();
                 editorFurniture.apply();
                 editorOther.apply();
-
             }
         });
 
@@ -94,18 +88,4 @@ public class DialogFilter extends AppCompatDialogFragment {
     return builder.create();
     }
 
-    public void MyHandler(View v) {
-        CheckBox cb = (CheckBox) v;
-        //on récupère la position à l'aide du tag défini dans la classe MyListAdapter
-        int position = Integer.parseInt(cb.getTag().toString());
-
-        //On change la couleur
-        if (cb.isChecked()) {
-            //ajouter les déchets du groupe ci dessous a faire
-            tabMyGroups.get(position);
-        } else {
-            //retirer déchet du groupe ci dessous a faire
-            tabMyGroups.get(position);
-        }
-    }
 }
