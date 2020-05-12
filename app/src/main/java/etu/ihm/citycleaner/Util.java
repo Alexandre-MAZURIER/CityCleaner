@@ -1,9 +1,12 @@
 package etu.ihm.citycleaner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,15 +36,11 @@ public class Util {
         return strAdd.replace(", ","\n");
     }
 
-    static public String formatDate(String date) {
-        Date trashDate = new Date();
-        try {
-            trashDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
-        return "Le " + simpleDateFormat.format(trashDate);
+    static public String getCurrentDate() {
+        Date d = new Date();
+        String pattern = "dd/MM/yyyy à HH:mm";
+        DateFormat df = new SimpleDateFormat(pattern);
+        return "Le " + df.format(d);
     }
 
 }

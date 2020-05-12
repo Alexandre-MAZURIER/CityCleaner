@@ -57,14 +57,7 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
 
         final Trash trash = (Trash) marker.getTag();
 
-        likeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                likes.setText(2 + "");
-            }
-        });
-
-        date.setText(Util.formatDate(trash.getDate()));
+        date.setText(trash.getDate());
 
         int trashTypeNb = trash.getType();
         if(trash.getType() < 4) trashType.setText(types[trash.getType()]);

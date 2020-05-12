@@ -61,7 +61,16 @@ public class MapFragment extends Fragment {
 
         trashManager = new TrashManager(this.getContext());
         trashManager.open();
-        //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
+        //trashManager.addTrash(new Trash(0, 0, 2, 43.581665, 7.121582, "Le 05/05/2020 à 13:50", "",-1));
+        //trashManager.addTrash(new Trash(1, 1, 2, 43.579987, 7.122226, "Le 03/05/2020 à 11:58", "",-1));
+        //trashManager.addTrash(new Trash(2, 2, 2, 43.578215, 7.122656, "Le 08/05/2020 à 19:26", "",-1));
+        //trashManager.addTrash(new Trash(3, 3, 2, 43.581728, 7.126349, "Le 11/05/2020 à 23:47", "",-1));
+        //trashManager.addTrash(new Trash(3, 2, 2, 43.580764, 7.127723, "Le 09/05/2020 à 14:12", "",-1));
+
+        //trashManager.addTrash(new Trash(4, 3, 1, 43.576287, 7.123171, "Le 12/05/2020 à 08:02", "",-1));
+        //trashManager.addTrash(new Trash(5, 2, 0, 43.579334, 7.118447, "Le 06/05/2020 à 18:16", "",-1));
+        //trashManager.addTrash(new Trash(5, 1, 2, 43.574422, 7.124627, "Le 08/05/2020 à 21:29", "",-1));
+
         //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), "", -1));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
