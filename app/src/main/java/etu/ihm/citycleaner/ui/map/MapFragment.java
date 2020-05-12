@@ -102,14 +102,26 @@ public class MapFragment extends Fragment {
         LatLng lastTrashPos = null;
         SharedPreferences sharedPref = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
-        if(sharedPref.getBoolean("keyGreen", true))
+        if(sharedPref.getBoolean("keyGreen", true) && sharedPref.getBoolean("keyCheckBox", true))
+            res.addAll(trashManager.getTrashesByGroupType(0));
+        else if(sharedPref.getBoolean("keyGreen", true))
             res.addAll(trashManager.getTrashesByType(0));
-        if(sharedPref.getBoolean("keyPlastic", true))
+
+        if(sharedPref.getBoolean("keyPlastic", true) && sharedPref.getBoolean("keyCheckBox", true))
+            res.addAll(trashManager.getTrashesByGroupType(1));
+        else if(sharedPref.getBoolean("keyPlastic", true))
             res.addAll(trashManager.getTrashesByType(1));
-        if(sharedPref.getBoolean("keyFurniture", true))
+
+        if(sharedPref.getBoolean("keyFurniture", true) && sharedPref.getBoolean("keyCheckBox", true))
+            res.addAll(trashManager.getTrashesByGroupType(2));
+        else if(sharedPref.getBoolean("keyFurniture", true))
             res.addAll(trashManager.getTrashesByType(2));
-        if(sharedPref.getBoolean("keyOther", true))
+
+        if(sharedPref.getBoolean("keyOther", true) && sharedPref.getBoolean("keyCheckBox", true))
+            res.addAll(trashManager.getTrashesByGroupType(3));
+        else if(sharedPref.getBoolean("keyOther", true))
             res.addAll(trashManager.getTrashesByType(3));
+
 
             for (Trash t : res) {
                 CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());

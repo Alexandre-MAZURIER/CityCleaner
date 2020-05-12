@@ -168,7 +168,19 @@ public class TrashManager {
         ArrayList<Trash> res = new ArrayList<>();
 
         for(Trash trash : trashes) {
-            if(trash.getType() == type) res.add(trash);
+            if(trash.getType() == type && trash.getGroupId() == -1) res.add(trash);
+        }
+
+        return res;
+    }
+
+    public ArrayList<Trash> getTrashesByGroupType(int type) {
+        ArrayList<Trash> trashes = this.getTrashs();
+
+        ArrayList<Trash> res = new ArrayList<>();
+
+        for(Trash trash : trashes) {
+            if(trash.getType() == type && trash.getGroupId() == Group.actualGroupId) res.add(trash);
         }
 
         return res;
