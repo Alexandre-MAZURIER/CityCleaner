@@ -174,7 +174,7 @@ public class CreateTrashActivity extends FragmentActivity {
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
 
-                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Calendar.getInstance().getTime().toString(), photoId, -1);
+                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Util.getCurrentDate(), photoId, -1);
 
                 databaseManager.open();
                 databaseManager.addTrash(trash);
@@ -182,7 +182,7 @@ public class CreateTrashActivity extends FragmentActivity {
 
                 openConfirmationDialog();
 
-                sendNotification();
+                sendNotification(photoId);
 
                 //finish();
             }else{
@@ -193,25 +193,30 @@ public class CreateTrashActivity extends FragmentActivity {
         }
     }
 
-    public void sendNotification() {
+    public void sendNotification(String PhotoPath) {
         NotificationManager mNotificationManager;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(PhotoPath);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(CreateTrashActivity.this, "notify_001");
         Intent ii = new Intent(CreateTrashActivity.this.getApplicationContext(), MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(CreateTrashActivity.this, 0, ii, 0);
 
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Vous serez informé de sa prise en charge.");
-        bigText.setBigContentTitle("Votre déchet a bien été transmis !");
-        bigText.setSummaryText("Confirmation");
+//        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+//        bigText.bigText("Vous serez informé de sa prise en charge.");
+//        bigText.setBigContentTitle("Votre déchet a bien été transmis !");
+//        bigText.setSummaryText("Confirmation");
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("Votre déchet a bien été transmis !");
         mBuilder.setContentText("Vous serez informé de sa prise en charge.");
         mBuilder.setPriority(Notification.PRIORITY_MAX);
-        mBuilder.setStyle(bigText);
+        mBuilder.setLargeIcon(bitmap);
+        mBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+                .bigPicture(bitmap)
+                .bigLargeIcon(null));
 
         mNotificationManager =
                 (NotificationManager) CreateTrashActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
