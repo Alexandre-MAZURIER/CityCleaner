@@ -2,8 +2,11 @@ package etu.ihm.citycleaner.ui.groups.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import java.util.Objects;
+
+import etu.ihm.citycleaner.CreateTrashActivity;
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
 import etu.ihm.citycleaner.ui.groups.Group;
@@ -66,6 +74,7 @@ public class AddGroupDialog extends AppCompatDialogFragment {
                         //we update the list
                         parentFragment.updateGroupsList();
                         parentFragment.updateMyGroupsList();
+                        sendNotification();
                     }
                 });
 
@@ -86,5 +95,30 @@ public class AddGroupDialog extends AppCompatDialogFragment {
 
     public interface DialogListener {
         void applyText(String groupName);
+    }
+
+    public void sendNotification() {
+        NotificationManager notificationManager =  (NotificationManager) getActivity().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder((getActivity().getApplicationContext()), "notify_002")
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("Groupe crée")
+                .setContentText("Le groupe " + editText.getText().toString() + " a bien été crée")
+                .setPriority(NotificationCompat.PRIORITY_MAX);
+
+
+        // === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "123";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
+
+        notificationManager.notify(1, builder.build());
     }
 }
