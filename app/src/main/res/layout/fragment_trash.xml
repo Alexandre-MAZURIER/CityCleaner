@@ -101,10 +101,9 @@
                 app:layout_constraintTop_toTopOf="@id/iconLike" />
 
             <Button
-                android:id="@+id/remove"
+                android:id="@+id/button_remove"
                 android:layout_width="102dp"
                 android:layout_height="34dp"
-                android:onClick="removeTrash"
                 android:text="Supprimer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -16,13 +16,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-
 import etu.ihm.citycleaner.ui.filter.DialogFilter;
-import etu.ihm.citycleaner.ui.groups.Group;
-import etu.ihm.citycleaner.ui.groups.GroupsFragment;
 import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
-import etu.ihm.citycleaner.ui.mytrashs.Trash;
 
 
 public class MainActivity extends AppCompatActivity implements AddGroupDialog.DialogListener {
@@ -55,12 +50,7 @@ public class MainActivity extends AppCompatActivity implements AddGroupDialog.Di
         Intent intent = new Intent(MainActivity.this, CreateTrashActivity.class);
         startActivity(intent);
     }
-
-    //supprime trash
-    public void removeTrash(View view){
-
-    }
-
+    
     public void filterTrash(View view) {
 //        Intent intent = new Intent(MainActivity.this, DialogFilter.class);
 //        startActivity(intent);
