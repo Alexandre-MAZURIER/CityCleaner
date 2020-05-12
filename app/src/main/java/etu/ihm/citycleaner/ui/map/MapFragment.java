@@ -1,6 +1,7 @@
 package etu.ihm.citycleaner.ui.map;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,6 +29,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.TrashManager;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
@@ -43,6 +47,7 @@ public class MapFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
+
         mMapView = root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -55,8 +60,18 @@ public class MapFragment extends Fragment {
         }
 
         trashManager = new TrashManager(this.getContext());
-        //trashManager.addTrash(new Trash(0, 2, 1, 43.615479, 7.072214, new Date().toString(), ""));
-        //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), ""));
+        trashManager.open();
+        //trashManager.addTrash(new Trash(0, 0, 2, 43.581665, 7.121582, "Le 05/05/2020 à 13:50", "",-1));
+        //trashManager.addTrash(new Trash(1, 1, 2, 43.579987, 7.122226, "Le 03/05/2020 à 11:58", "",-1));
+        //trashManager.addTrash(new Trash(2, 2, 2, 43.578215, 7.122656, "Le 08/05/2020 à 19:26", "",-1));
+        //trashManager.addTrash(new Trash(3, 3, 2, 43.581728, 7.126349, "Le 11/05/2020 à 23:47", "",-1));
+        //trashManager.addTrash(new Trash(3, 2, 2, 43.580764, 7.127723, "Le 09/05/2020 à 14:12", "",-1));
+
+        //trashManager.addTrash(new Trash(4, 3, 1, 43.576287, 7.123171, "Le 12/05/2020 à 08:02", "",-1));
+        //trashManager.addTrash(new Trash(5, 2, 0, 43.579334, 7.118447, "Le 06/05/2020 à 18:16", "",-1));
+        //trashManager.addTrash(new Trash(5, 1, 2, 43.574422, 7.124627, "Le 08/05/2020 à 21:29", "",-1));
+
+        //trashManager.addTrash(new Trash(1, 1, 1, 43.61641, 7.06866, new Date().toString(), "", -1));
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -81,36 +96,39 @@ public class MapFragment extends Fragment {
         });
     }
 
-    public void loadTrashesFromDb(){
+    public void loadTrashesFromDb() {
+        ArrayList<Trash> res = new ArrayList<>();
         trashManager.open();
         LatLng lastTrashPos = null;
-        for(Trash t : trashManager.getTrashs()) {
-            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
-            googleMap.setInfoWindowAdapter(customInfoWindow);
-            Log.e("TrashType", t.getType() + "");
-            LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
-            Marker m = googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
-                    ));
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
-            /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
+        if(sharedPref.getBoolean("keyGreen", true))
+            res.addAll(trashManager.getTrashesByType(0));
+        if(sharedPref.getBoolean("keyPlastic", true))
+            res.addAll(trashManager.getTrashesByType(1));
+        if(sharedPref.getBoolean("keyFurniture", true))
+            res.addAll(trashManager.getTrashesByType(2));
+        if(sharedPref.getBoolean("keyOther", true))
+            res.addAll(trashManager.getTrashesByType(3));
 
-                    return true;
-                }
-            });*/
-
-            m.setTag(t);
-            m.showInfoWindow();
-            lastTrashPos = latLng;
+            for (Trash t : res) {
+                CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this.getContext());
+                googleMap.setInfoWindowAdapter(customInfoWindow);
+                LatLng latLng = new LatLng(t.getLatitude(), t.getLongitude());
+                Marker m = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(t.getType()))
+                        ));
+                m.setTag(t);
+                m.showInfoWindow();
+                lastTrashPos = latLng;
+            }
+            if (lastTrashPos != null) {
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(lastTrashPos).zoom(15).build();
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
         }
-        if(lastTrashPos != null) {
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(lastTrashPos).zoom(15).build();
-            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-    }
+
 
     private Bitmap getMarkerBitmapFromView(int n) {
         View customMarkerView = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);

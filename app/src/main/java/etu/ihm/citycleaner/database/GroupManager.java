@@ -1,6 +1,5 @@
 package etu.ihm.citycleaner.database;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -142,6 +141,37 @@ public class GroupManager {
         trashManager.open();
         ArrayList<Trash> res = trashManager.getTrashs();
 
+        return res;
+    }
+
+    public ArrayList<Group> getMyGroups() {
+        ArrayList<Group> res = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+KEY_IS_MY_GROUP+"= 1", null);
+
+        if (c.moveToFirst()) {
+            do {
+                int groupId;
+                String groupName;
+                int isMyGroup;
+
+                groupId = c.getInt(c.getColumnIndex(KEY_ID));
+                groupName = c.getString(c.getColumnIndex(KEY_NAME));
+                isMyGroup = c.getInt(c.getColumnIndex(KEY_IS_MY_GROUP));
+
+                //we add the trashes to the group if they exist
+                ArrayList<Trash> trashes = this.getTrashesList();
+                ArrayList<Trash> myTrashes = new ArrayList<>();
+
+                for(Trash trash : trashes) {
+                    if(trash.getGroupId() == groupId) myTrashes.add(trash);
+                }
+
+                res.add(new Group(groupId, groupName, myTrashes, isMyGroup));
+            }
+            while (c.moveToNext());
+        }
+        // closing cursor
+        c.close();
         return res;
     }
 }

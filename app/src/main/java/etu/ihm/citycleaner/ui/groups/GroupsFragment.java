@@ -1,7 +1,14 @@
 package etu.ihm.citycleaner.ui.groups;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.model.TileOverlay;
@@ -20,6 +29,8 @@ import com.google.android.gms.maps.model.TileOverlay;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import etu.ihm.citycleaner.CreateTrashActivity;
+import etu.ihm.citycleaner.MainActivity;
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
 import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
@@ -66,6 +77,7 @@ public class GroupsFragment extends Fragment{
                 openAddGroupDialog();
             }
         });
+
 
         //------------------ FIN MENU --------------------------------------------------------------
 
@@ -114,4 +126,6 @@ public class GroupsFragment extends Fragment{
         }
         this.adapter.notifyDataSetChanged();
     }
+
+
 }
