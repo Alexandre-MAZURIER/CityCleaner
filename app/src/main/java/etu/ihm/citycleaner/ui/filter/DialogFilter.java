@@ -7,30 +7,40 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
 
-import etu.ihm.citycleaner.MainActivity;
 import etu.ihm.citycleaner.R;
+import etu.ihm.citycleaner.database.GroupManager;
+import etu.ihm.citycleaner.ui.groups.Group;
 
 
 public class DialogFilter extends AppCompatDialogFragment {
+
+    private ListView list;
+    private ArrayList<Group> tabMyGroups;
 
     @SuppressLint("ResourceType")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_filter_trash, null);
 
+        GroupManager groupManager = new GroupManager(getActivity());
+        groupManager.open();
+        tabMyGroups = groupManager.getMyGroups();
+        View view = inflater.inflate(R.layout.activity_filter_trash, null);
+        list = view.findViewById(R.id.listGroups);
+        if(tabMyGroups != null){
+            FilterGroupAdapter filterGroupAdapter = new FilterGroupAdapter(getActivity(),R.layout.fragment_trash, tabMyGroups);
+            list.setAdapter(filterGroupAdapter);
+        }
 
         SharedPreferences share = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
@@ -84,4 +94,18 @@ public class DialogFilter extends AppCompatDialogFragment {
     return builder.create();
     }
 
+    public void MyHandler(View v) {
+        CheckBox cb = (CheckBox) v;
+        //on récupère la position à l'aide du tag défini dans la classe MyListAdapter
+        int position = Integer.parseInt(cb.getTag().toString());
+
+        //On change la couleur
+        if (cb.isChecked()) {
+            //ajouter les déchets du groupe ci dessous a faire
+            tabMyGroups.get(position);
+        } else {
+            //retirer déchet du groupe ci dessous a faire
+            tabMyGroups.get(position);
+        }
+    }
 }
