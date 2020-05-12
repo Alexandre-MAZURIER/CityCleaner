@@ -53,6 +53,9 @@ public class DialogFilter extends AppCompatDialogFragment {
         final CheckBox other = view.findViewById(R.id.other);
         final SharedPreferences.Editor editorOther = share.edit();
 
+        final CheckBox checkBox = view.findViewById(R.id.groupCheckBox);
+        final SharedPreferences.Editor editorCheckBox = share.edit();
+
         builder.setView(view);
 
         if(share.getBoolean("keyGreen", true))
@@ -63,6 +66,8 @@ public class DialogFilter extends AppCompatDialogFragment {
             furniture.setChecked(true);
         if(share.getBoolean("keyOther", true))
             other.setChecked(true);
+        if(share.getBoolean("keyCheckBox", true))
+            checkBox.setChecked(true);
 
         builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
@@ -71,11 +76,13 @@ public class DialogFilter extends AppCompatDialogFragment {
                 editorPlastic.putBoolean("keyPlastic", plastic.isChecked());
                 editorFurniture.putBoolean("keyFurniture", furniture.isChecked());
                 editorOther.putBoolean("keyOther", other.isChecked());
+                editorCheckBox.putBoolean("keyCheckBox", checkBox.isChecked());
 
                 editorGreen.apply();
                 editorPlastic.apply();
                 editorFurniture.apply();
                 editorOther.apply();
+                editorCheckBox.apply();
             }
         });
 
