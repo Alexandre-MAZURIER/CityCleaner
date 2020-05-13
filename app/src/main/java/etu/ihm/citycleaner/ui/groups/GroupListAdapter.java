@@ -60,7 +60,7 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
             public void onClick(View v) {
                 Group group = getItem(position);
                 Group.actualGroupId = group.getId();
-                Toast.makeText(getContext(), group.getName() + " défini comme groupe actuel", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), group.getName() + " défini comme groupe actuel", Toast.LENGTH_SHORT).show();
                 finalConvertView.setBackgroundColor(0xFFEAE6F4);
 
                 GroupListAdapter adapter = groupsFragment.getGroupListAdapter();
