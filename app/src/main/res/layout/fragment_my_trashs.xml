@@ -36,7 +36,9 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
     <Button
         android:id="@+id/buttonSimplify"
