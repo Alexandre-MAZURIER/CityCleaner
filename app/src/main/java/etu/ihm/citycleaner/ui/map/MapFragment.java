@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Date;
 
+import etu.ihm.citycleaner.MainActivity;
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.TrashManager;
 import etu.ihm.citycleaner.ui.mytrashs.Trash;
@@ -42,8 +44,16 @@ public class MapFragment extends Fragment {
     private GoogleMap googleMap;
     private TrashManager trashManager;
 
+    public void refreshMap() {
+        assert getFragmentManager() != null;
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        MainActivity.mapFragment = this;
 
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
