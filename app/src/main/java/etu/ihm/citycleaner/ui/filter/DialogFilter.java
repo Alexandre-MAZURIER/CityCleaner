@@ -12,32 +12,41 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
+import etu.ihm.citycleaner.MainActivity;
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
 import etu.ihm.citycleaner.ui.groups.Group;
+import etu.ihm.citycleaner.ui.map.MapFragment;
 
 
 public class DialogFilter extends AppCompatDialogFragment {
 
-    private ArrayList<Group> tabMyGroups;
+    private Group currentGroup;
 
     @SuppressLint("ResourceType")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
+
+        //------------------------------------------------------------------------------------------
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         GroupManager groupManager = new GroupManager(getActivity());
         groupManager.open();
-        tabMyGroups = groupManager.getMyGroups();
+        if(Group.actualGroupId != -1) {
+            this.currentGroup = groupManager.getGroup(Group.actualGroupId);
+        }
         View view = inflater.inflate(R.layout.activity_filter_trash, null);
-        if(tabMyGroups != null && tabMyGroups.size() != 0 ){
+        if(currentGroup != null){
             CheckBox checkBox = view.findViewById(R.id.groupCheckBox);
             checkBox.setVisibility(0);
-            checkBox.setText(tabMyGroups.get(0).getName());
+            checkBox.setText(currentGroup.getName());
         }
         SharedPreferences share = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
@@ -69,6 +78,8 @@ public class DialogFilter extends AppCompatDialogFragment {
         if(share.getBoolean("keyCheckBox", true))
             checkBox.setChecked(true);
 
+        final MapFragment finalMapFragment = MainActivity.mapFragment;
+
         builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -83,6 +94,9 @@ public class DialogFilter extends AppCompatDialogFragment {
                 editorFurniture.apply();
                 editorOther.apply();
                 editorCheckBox.apply();
+
+                //we refresh the map
+                finalMapFragment.refreshMap();
             }
         });
 

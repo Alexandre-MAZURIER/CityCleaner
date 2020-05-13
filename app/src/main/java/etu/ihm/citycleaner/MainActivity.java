@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,11 +17,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import etu.ihm.citycleaner.ui.filter.DialogFilter;
 import etu.ihm.citycleaner.ui.groups.dialogs.AddGroupDialog;
+import etu.ihm.citycleaner.ui.map.MapFragment;
 
 
 public class MainActivity extends AppCompatActivity implements AddGroupDialog.DialogListener {
+
+    public static MapFragment mapFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

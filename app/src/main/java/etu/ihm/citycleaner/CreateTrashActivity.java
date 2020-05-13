@@ -68,7 +68,8 @@ public class CreateTrashActivity extends FragmentActivity {
     int garbageType = -1;
 
     private TrashManager databaseManager = new TrashManager(this);
-    private String currentPhotoPath;
+    private String currentPhotoPath = null;
+    private boolean pictureTaken = false;
 
 
     @Override
@@ -114,6 +115,7 @@ public class CreateTrashActivity extends FragmentActivity {
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
+        assert lm != null;
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this.locationListener);
 
 
@@ -170,21 +172,25 @@ public class CreateTrashActivity extends FragmentActivity {
                     // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
+//                if(this.pictureTaken) {
+                    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
 
-                Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Util.getCurrentDate(), photoId, -1);
+                    Trash trash = new Trash(0, this.garbageType, this.garbageSize, latitude, longitude, Util.getCurrentDate(), photoId, -1);
 
-                databaseManager.open();
-                databaseManager.addTrash(trash);
-                databaseManager.close();
+                    databaseManager.open();
+                    databaseManager.addTrash(trash);
+                    databaseManager.close();
 
-                openConfirmationDialog();
+                    openConfirmationDialog();
 
-                sendNotification(photoId);
+                    sendNotification(photoId);
 
-                //finish();
+                    //finish();
+//                }else{
+//                    Toast.makeText(getApplicationContext(), "Veuillez prendre une photo du déchet", Toast.LENGTH_SHORT).show();
+//                }
             }else{
                 Toast.makeText(getApplicationContext(), "Sélectionner un type de déchet", Toast.LENGTH_SHORT).show();
             }
@@ -329,6 +335,7 @@ public class CreateTrashActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            this.pictureTaken = true;
             setPic();
         }
     }
