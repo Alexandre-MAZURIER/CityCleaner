@@ -167,7 +167,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_medium_bin"
-                android:onClick="onSizeChange" />
+                android:onClick="onSizeChange"
+                android:layout_marginStart="30dp"/>
 
 
             <RadioButton
@@ -175,7 +176,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_large_bin"
-                android:onClick="onSizeChange" />
+                android:onClick="onSizeChange"
+                android:layout_marginStart="30dp"/>
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
