@@ -15,12 +15,27 @@
 
     <Button
         android:id="@+id/buttonSimplify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Simplifier"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="131dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginBottom="28dp"
+        android:text="Changer vue"
+        android:theme="@style/ButtonRemove"
         app:layout_constraintBottom_toTopOf="@+id/contenu_my_trashs"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="195dp"
+        android:layout_height="57dp"
+        android:text="Mes Déchets"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/contenu_my_trashs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
