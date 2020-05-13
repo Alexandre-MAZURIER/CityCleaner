@@ -22,51 +22,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="3dp">
+            android:padding="3dp"
+            android:layout_margin="5dp"
+            android:background="@color/colorBlancTifa2">
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="123dp"
-                android:layout_height="13dp"
-                android:layout_marginTop="12dp"
-                android:textSize="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_remove"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Le 13/05/2020 à 13:38"
+                />
 
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_green"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/adress"
+                app:layout_constraintBottom_toBottomOf="@id/adress"
+
+                />
 
             <TextView
                 android:id="@+id/adress"
-                android:layout_width="236dp"
-                android:layout_height="61dp"
-                android:layout_marginStart="44dp"
-                android:textSize="13dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                android:layout_marginStart="15dp"
+                android:text="Polytech Nice Sophia"/>
 
             <ImageView
                 android:id="@+id/iconLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/ic_like"
-                app:layout_constraintEnd_toStartOf="@+id/button_remove"
                 app:layout_constraintHorizontal_bias="0.426"
                 app:layout_constraintStart_toEndOf="@+id/adress"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                />
 
             <TextView
                 android:id="@+id/nbLike"
@@ -81,10 +86,11 @@
 
             <ImageButton
                 android:id="@+id/button_remove"
-                android:layout_width="37dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:srcCompat="@drawable/ic_close" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

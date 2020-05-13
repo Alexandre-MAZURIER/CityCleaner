@@ -94,6 +94,12 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
         Bitmap bitmap = BitmapFactory.decodeFile(trash.getImage(), bmOptions);
         imageView.setImageBitmap(bitmap);
 
+        ImageView trashSize = view.findViewById(R.id.trashSize);
+        int trashSizeInt = trash.getClutter();
+        if(trashSizeInt == 0) trashSize.setImageResource(R.drawable.ic_little_bin);
+        else if (trashSizeInt == 1) trashSize.setImageResource(R.drawable.ic_medium_bin);
+        else trashSize.setImageResource(R.drawable.ic_large_bin);
+
 
         return view;
     }

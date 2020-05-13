@@ -24,6 +24,18 @@ public class Trash {
         this.groupId = groupId;
     }
 
+    public Trash(int id, int type, int clutter, double latitude, double longitude, String date, String image, int groupId, int nbLike) {
+        this.id = id;
+        this.type = type;
+        this.clutter = clutter;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.date = date;
+        this.image = image;
+        this.nbLike = nbLike;
+        this.groupId = groupId;
+    }
+
     public int getType() {
         return type;
     }
