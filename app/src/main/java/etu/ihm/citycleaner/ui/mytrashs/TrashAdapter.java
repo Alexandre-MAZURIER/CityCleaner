@@ -1,6 +1,8 @@
 package etu.ihm.citycleaner.ui.mytrashs;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -37,12 +40,31 @@ public class TrashAdapter extends ArrayAdapter<Trash> {
         View.OnClickListener handler = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TrashManager trashManager = new TrashManager(getContext());
-                trashManager.open();
-                trashManager.removeTrash(trash.getId());
-                clear();
-                addAll(trashManager.getTrashs());
-                notifyDataSetChanged();
+                AlertDialog.Builder popup = new AlertDialog.Builder(getContext());
+                popup.setMessage("Voulez-vous vraiment supprimer ce déchet ?");
+
+                popup.setNegativeButton("Oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TrashManager trashManager = new TrashManager(getContext());
+                        trashManager.open();
+                        trashManager.removeTrash(trash.getId());
+                        clear();
+                        addAll(trashManager.getTrashs());
+                        notifyDataSetChanged();
+                        Toast.makeText(getContext(),"Déchet supprimé", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                popup.setPositiveButton("Non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                popup.show();
+
+
             }
         };
         // Get the data item for this position
