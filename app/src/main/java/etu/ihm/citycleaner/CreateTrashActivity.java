@@ -114,6 +114,7 @@ public class CreateTrashActivity extends FragmentActivity {
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
+        assert lm != null;
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this.locationListener);
 
 

@@ -18,11 +18,19 @@ import java.util.ArrayList;
 import etu.ihm.citycleaner.R;
 import etu.ihm.citycleaner.database.GroupManager;
 import etu.ihm.citycleaner.ui.groups.Group;
+import etu.ihm.citycleaner.ui.map.MapFragment;
 
 
 public class DialogFilter extends AppCompatDialogFragment {
 
-    private ArrayList<Group> tabMyGroups;
+    private Group currentGroup;
+    private MapFragment mapFragment;
+
+    /*public DialogFilter(MapFragment mapFragment) {
+        this.mapFragment = mapFragment;
+    }
+
+     */
 
     @SuppressLint("ResourceType")
     @Override
@@ -32,12 +40,14 @@ public class DialogFilter extends AppCompatDialogFragment {
 
         GroupManager groupManager = new GroupManager(getActivity());
         groupManager.open();
-        tabMyGroups = groupManager.getMyGroups();
+        if(Group.actualGroupId != -1) {
+            this.currentGroup = groupManager.getGroup(Group.actualGroupId);
+        }
         View view = inflater.inflate(R.layout.activity_filter_trash, null);
-        if(tabMyGroups != null && tabMyGroups.size() != 0 ){
+        if(currentGroup != null){
             CheckBox checkBox = view.findViewById(R.id.groupCheckBox);
             checkBox.setVisibility(0);
-            checkBox.setText(tabMyGroups.get(0).getName());
+            checkBox.setText(currentGroup.getName());
         }
         SharedPreferences share = getActivity().getSharedPreferences("checkBox", Context.MODE_PRIVATE);
 
@@ -83,6 +93,7 @@ public class DialogFilter extends AppCompatDialogFragment {
                 editorFurniture.apply();
                 editorOther.apply();
                 editorCheckBox.apply();
+
             }
         });
 
