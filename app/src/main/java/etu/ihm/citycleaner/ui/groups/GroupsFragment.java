@@ -90,14 +90,6 @@ public class GroupsFragment extends Fragment{
 
         updateMyGroupsList();
 
-        //updating colors in list
-        for (int i = 0; i <= groupsList.getLastVisiblePosition() - groupsList.getFirstVisiblePosition(); i++) {
-            if (Objects.requireNonNull(adapter.getItem(i)).getId() != Group.actualGroupId) {
-                groupsList.getChildAt(i).setBackgroundColor(0xFFF0F0F0);
-            }
-            else groupsList.setBackgroundColor(0xFFEAE6F4);
-        }
-
         return root;
     }
 
@@ -124,6 +116,7 @@ public class GroupsFragment extends Fragment{
         for(Group group : GroupsFragment.groups){
             if(group.isMyGroup() == 1) this.myGroupsList.add(group);
         }
+
         this.adapter.notifyDataSetChanged();
     }
 

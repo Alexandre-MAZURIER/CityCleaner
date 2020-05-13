@@ -53,15 +53,12 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
         Button deleteGroup = convertView.findViewById(R.id.delete_group_button);
 
         groupNameView.setText(groupName);
-        final View finalConvertView = convertView;
-        final View finalConvertView1 = convertView;
         groupNameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Group group = getItem(position);
                 Group.actualGroupId = group.getId();
                 Toast.makeText(getContext(), group.getName() + " défini comme groupe actuel", Toast.LENGTH_SHORT).show();
-                finalConvertView.setBackgroundColor(0xFFEAE6F4);
 
                 GroupListAdapter adapter = groupsFragment.getGroupListAdapter();
 
@@ -69,6 +66,8 @@ public class GroupListAdapter extends ArrayAdapter<Group> {
                     if (Objects.requireNonNull(adapter.getItem(i)).getId() != Group.actualGroupId) {
                         parent.getChildAt(i).setBackgroundColor(0xFFF0F0F0);
                     }
+                    else parent.getChildAt(i).setBackgroundColor(0xFFd5c9f5);
+
                 }
             }
         });
