@@ -29,6 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/add_trash_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ajouter un déchet"
@@ -37,6 +38,16 @@
             app:layout_constraintBottom_toBottomOf="@id/back"
             android:textSize="16sp"
             android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/contact_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Un problème ?"
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toEndOf="@id/add_trash_textview"
+            tools:layout_editor_absoluteY="2dp"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

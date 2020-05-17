@@ -77,6 +77,29 @@ public class CreateTrashActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trash);
 
+        Button contact_button = findViewById(R.id.contact_button);
+        contact_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:support@citycleaner.com"));
+                intent.setClassName("com.google.android.gm", "com.google.android.gm.ConversationListActivity");
+                //putExtra(Intent.EXTRA_SUBJECT, subject)
+                //putExtra(Intent.EXTRA_TEXT, text)
+                startActivity(intent);
+
+                 */
+
+
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"support@citycleaner.com"});
+                email.putExtra(Intent.EXTRA_SUBJECT, "Problème rencontré en utilisant City Cleaner");
+                email.putExtra(Intent.EXTRA_TEXT, "");
+                email.setType("message/rfc822");
+                startActivity(Intent.createChooser(email, "Send Mail Using :"));
+            }
+        });
+
         this.imageView = (ImageView) this.findViewById(R.id.imageView); // Where a miniature will be displayed
 
         Button photoButton = (Button) this.findViewById(R.id.imageButton);
