@@ -102,8 +102,8 @@ public class AddGroupDialog extends AppCompatDialogFragment {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder((getActivity().getApplicationContext()), "notify_002")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Groupe crée")
-                .setContentText("Le groupe " + editText.getText().toString() + " a bien été crée")
+                .setContentTitle("Le groupe " + editText.getText().toString() + " a bien été créé !")
+                .setContentText("Signalez un déchet dès maintenant dans ce groupe !")
                 .setPriority(NotificationCompat.PRIORITY_MAX);
 
 
